@@ -1,6 +1,7 @@
 package com.abhishek.employeemanagementsystem.ExceptionHandler;
 
 import com.abhishek.employeemanagementsystem.Dtos.ExceptionDto;
+import com.abhishek.employeemanagementsystem.Exceptions.AdminNotFoundException;
 import com.abhishek.employeemanagementsystem.Exceptions.EmployeeIDAlreadyExistsException;
 import com.abhishek.employeemanagementsystem.Exceptions.InvalidEmployeeIdFoundException;
 import org.springframework.http.HttpStatus;
@@ -34,6 +35,15 @@ public class GlobalExceptionHandler {
         ExceptionDto exceptionDto = new ExceptionDto();
         exceptionDto.setMessage("Employee with ID : " + e.getId() + " Already Exists");
         exceptionDto.setResolution("EmployeeIDAlreadyExistsException");
+        ResponseEntity<ExceptionDto> responseEntity = new ResponseEntity<>(exceptionDto, HttpStatus.BAD_REQUEST);
+        return responseEntity;
+    }
+
+    @ExceptionHandler(AdminNotFoundException.class)
+    public ResponseEntity<ExceptionDto> handleAdminNotFoundException(AdminNotFoundException e) {
+        ExceptionDto exceptionDto = new ExceptionDto();
+        exceptionDto.setMessage("Admin with id " + e.getId() + " not found");
+        exceptionDto.setResolution("AdminNotFoundException");
         ResponseEntity<ExceptionDto> responseEntity = new ResponseEntity<>(exceptionDto, HttpStatus.BAD_REQUEST);
         return responseEntity;
     }
