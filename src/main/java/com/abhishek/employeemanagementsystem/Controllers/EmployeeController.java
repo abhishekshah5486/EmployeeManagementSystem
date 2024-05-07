@@ -2,6 +2,7 @@ package com.abhishek.employeemanagementsystem.Controllers;
 
 import com.abhishek.employeemanagementsystem.Dtos.EmployeeRequestDto;
 import com.abhishek.employeemanagementsystem.Dtos.EmployeeResponseDto;
+import com.abhishek.employeemanagementsystem.Dtos.EmployeeUpdateRequestDto;
 import com.abhishek.employeemanagementsystem.Models.Employee;
 import com.abhishek.employeemanagementsystem.Services.EmployeeService;
 import org.modelmapper.ModelMapper;
@@ -31,7 +32,13 @@ public class EmployeeController {
     }
 
     @PutMapping("/{id}")
-    public Employee updateEmployee(@PathVariable Long id, @RequestBody Employee employee) {
-        return null;
+    public EmployeeResponseDto updateEmployee(@PathVariable Long id, @RequestBody EmployeeUpdateRequestDto employeeUpdateRequestDto) {
+        Employee employee = employeeService.updateEmployee(id, employeeUpdateRequestDto);
+        return modelMapper.map(employee, EmployeeResponseDto.class);
+    }
+
+    @DeleteMapping("/{id}")
+    public void deleteEmployee(@PathVariable Long id) {
+        employeeService.deleteEmployee(id);
     }
 }

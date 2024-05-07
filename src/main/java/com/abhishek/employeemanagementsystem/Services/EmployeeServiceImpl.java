@@ -1,6 +1,7 @@
 package com.abhishek.employeemanagementsystem.Services;
 
 import com.abhishek.employeemanagementsystem.Dtos.EmployeeRequestDto;
+import com.abhishek.employeemanagementsystem.Dtos.EmployeeUpdateRequestDto;
 import com.abhishek.employeemanagementsystem.Exceptions.EmployeeIDAlreadyExistsException;
 import com.abhishek.employeemanagementsystem.Exceptions.InvalidEmployeeIdFoundException;
 import com.abhishek.employeemanagementsystem.Models.Department;
@@ -52,7 +53,20 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public Employee updateEmployee(Long id, Employee employee) {
-        employeeRepository.save(employee);
+    public Employee updateEmployee(Long id, EmployeeUpdateRequestDto employeeUpdateRequestDto) {
+        Optional<Employee> employee = employeeRepository.findById(id);
+        if (employee.isEmpty()){
+            throw new InvalidEmployeeIdFoundException("Employee id not found");
+        }
+        employee.get().setName(employeeUpdateRequestDto.getName());
+        employee.get().setEmail(employeeUpdateRequestDto.getEmail());
+        employee.get().setDateOfJoining(employeeUpdateRequestDto.getDateOfJoining());
+        Employee updatedEmployee = employeeRepository.save(employee.get());
+        return updatedEmployee;
+    }
+
+    @Override
+    public void deleteEmployee(Long id) {
+        employeeRepository.deleteById(id);
     }
 }

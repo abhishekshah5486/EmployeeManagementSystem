@@ -13,4 +13,7 @@ public interface EmployeeRepository extends JpaRepository<Employee, Long> {
 
     @Override
     Employee save(Employee employee);
+
+    @Override
+    void deleteById(Long id);
 }
