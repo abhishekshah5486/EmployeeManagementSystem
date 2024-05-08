@@ -1,7 +1,9 @@
 package com.abhishek.employeemanagementsystem.Services;
 
 import com.abhishek.employeemanagementsystem.Dtos.AdminLoginRequestDto;
+import com.abhishek.employeemanagementsystem.Dtos.CreateDepartmentRequestDto;
 import com.abhishek.employeemanagementsystem.Dtos.DepartmentUpdateRequestDto;
+import com.abhishek.employeemanagementsystem.Dtos.UpdateDepartmentRequestDto;
 import com.abhishek.employeemanagementsystem.Exceptions.DepartmentIDAlreadyExistsException;
 import com.abhishek.employeemanagementsystem.Exceptions.InvalidDepartmentIDException;
 import com.abhishek.employeemanagementsystem.Exceptions.InvalidPasswordForUsernameException;
@@ -24,7 +26,9 @@ public class DepartmentServiceImpl implements DepartmentService {
     }
 
     @Override
-    public Department createDepartment(Department department, AdminLoginRequestDto adminLoginRequestDto) {
+    public Department createDepartment(CreateDepartmentRequestDto createDepartmentRequestDto) {
+        Department department = createDepartmentRequestDto.getDepartment();
+        AdminLoginRequestDto adminLoginRequestDto = createDepartmentRequestDto.getAdminLoginRequestDto();
         // Log in the admin
         Admin admin = adminService.adminLogin(adminLoginRequestDto);
         if (department.getId() != null){
@@ -46,7 +50,9 @@ public class DepartmentServiceImpl implements DepartmentService {
     }
 
     @Override
-    public Department updateDepartment(Long id, DepartmentUpdateRequestDto departmentUpdateRequestDto, AdminLoginRequestDto adminLoginRequestDto) {
+    public Department updateDepartment(Long id, UpdateDepartmentRequestDto updateDepartmentRequestDto) {
+        DepartmentUpdateRequestDto departmentUpdateRequestDto = updateDepartmentRequestDto.getDepartmentUpdateRequestDto();
+        AdminLoginRequestDto adminLoginRequestDto = updateDepartmentRequestDto.getAdminLoginRequestDto();
         // Log in the admin
         Admin admin = adminService.adminLogin(adminLoginRequestDto);
         // Check if the department Id exists or not

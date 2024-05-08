@@ -82,9 +82,6 @@ public class AdminServiceImpl implements AdminService {
         if (!optionalAdmin.get().getPassword().equals(password)){
             throw new InvalidPasswordForUsernameException("Invalid password !");
         }
-        if (optionalAdmin.get().getLoginStatus().equals(LoginStatus.LOGGEDIN)){
-            return optionalAdmin.get();
-        }
         optionalAdmin.get().setLoginStatus(LoginStatus.LOGGEDIN);
         return adminRepository.save(optionalAdmin.get());
     }

@@ -29,6 +29,15 @@ public class GlobalExceptionHandler {
         return responseEntity;
     }
 
+    @ExceptionHandler(NullPointerException.class)
+    public ResponseEntity<ExceptionDto> handleNullPointerException(NullPointerException e) {
+        ExceptionDto exceptionDto = new ExceptionDto();
+        exceptionDto.setMessage("Something went wrong");
+        exceptionDto.setResolution("NullPointerException");
+        ResponseEntity<ExceptionDto> responseEntity = new ResponseEntity<>(exceptionDto, HttpStatus.BAD_REQUEST);
+        return responseEntity;
+    }
+
     @ExceptionHandler(UsernameAlreadyExistsException.class)
     public ResponseEntity<ExceptionDto> handleUsernameAlreadyExistsException(UsernameAlreadyExistsException e) {
         ExceptionDto exceptionDto = new ExceptionDto();

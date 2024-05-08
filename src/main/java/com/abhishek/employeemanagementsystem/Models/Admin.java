@@ -26,5 +26,5 @@ public class Admin {
     private String email;
     private LocalDate dateOfJoining;
     private UserType userType = UserType.ADMIN;
-    private LoginStatus loginStatus;
+    private LoginStatus loginStatus = LoginStatus.LOGGEDOUT;
 }

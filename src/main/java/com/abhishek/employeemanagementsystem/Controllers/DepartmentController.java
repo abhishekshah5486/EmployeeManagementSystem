@@ -1,7 +1,9 @@
 package com.abhishek.employeemanagementsystem.Controllers;
 
 import com.abhishek.employeemanagementsystem.Dtos.AdminLoginRequestDto;
+import com.abhishek.employeemanagementsystem.Dtos.CreateDepartmentRequestDto;
 import com.abhishek.employeemanagementsystem.Dtos.DepartmentUpdateRequestDto;
+import com.abhishek.employeemanagementsystem.Dtos.UpdateDepartmentRequestDto;
 import com.abhishek.employeemanagementsystem.Models.Department;
 import com.abhishek.employeemanagementsystem.Services.DepartmentService;
 import lombok.Getter;
@@ -21,8 +23,8 @@ public class DepartmentController {
     }
 
     @PostMapping("/")
-    public Department createDepartment(@RequestBody Department department, AdminLoginRequestDto adminLoginRequestDto) {
-        return departmentService.createDepartment(department, adminLoginRequestDto);
+    public Department createDepartment(@RequestBody CreateDepartmentRequestDto createDepartmentRequestDto) {
+        return departmentService.createDepartment(createDepartmentRequestDto);
     }
 
     @DeleteMapping("/{id}")
@@ -31,12 +33,12 @@ public class DepartmentController {
     }
 
     @PutMapping({"/{id}"})
-    public Department updateDepartment(@PathVariable Long id, @RequestBody DepartmentUpdateRequestDto departmentUpdateRequestDto, AdminLoginRequestDto adminLoginRequestDto) {
-        return null;
+    public Department updateDepartment(@PathVariable Long id, @RequestBody UpdateDepartmentRequestDto updateDepartmentRequestDto) {
+        return departmentService.updateDepartment(id, updateDepartmentRequestDto);
     }
 
     @GetMapping("/{id}")
     public Department getDepartmentById(@PathVariable Long id) {
-        return null;
+        return departmentService.getDepartmentById(id);
     }
 }

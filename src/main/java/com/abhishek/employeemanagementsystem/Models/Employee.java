@@ -25,5 +25,5 @@ public class Employee {
     private Role role;
     private LocalDate dateOfJoining;
     private UserType userType = UserType.EMPLOYEE;
-    private LoginStatus loginStatus;
+    private LoginStatus loginStatus = LoginStatus.LOGGEDOUT;
 }
