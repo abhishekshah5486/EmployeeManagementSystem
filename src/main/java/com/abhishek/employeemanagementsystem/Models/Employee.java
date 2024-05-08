@@ -24,5 +24,6 @@ public class Employee {
     @ManyToOne
     private Role role;
     private LocalDate dateOfJoining;
-
+    private UserType userType = UserType.EMPLOYEE;
+    private LoginStatus loginStatus;
 }

@@ -9,6 +9,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDate;
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -20,4 +22,9 @@ public class Admin {
     private Long id;
     private String username;
     private String password;
+    private String name;
+    private String email;
+    private LocalDate dateOfJoining;
+    private UserType userType = UserType.ADMIN;
+    private LoginStatus loginStatus;
 }
