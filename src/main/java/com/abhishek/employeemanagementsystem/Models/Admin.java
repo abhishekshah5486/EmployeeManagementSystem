@@ -1,9 +1,6 @@
 package com.abhishek.employeemanagementsystem.Models;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -24,6 +21,8 @@ public class Admin {
     private String password;
     private String name;
     private String email;
+    @ManyToOne
+    private Department department;
     private LocalDate dateOfJoining;
     private UserType userType = UserType.ADMIN;
     private LoginStatus loginStatus = LoginStatus.LOGGEDOUT;

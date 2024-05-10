@@ -20,4 +20,13 @@ public class Department {
     private Long id;
     private String name;
     private String description;
+
+    @ElementCollection
+    List<Long> employeeIds = new ArrayList<>();
+    @ElementCollection
+    List<Long> departmentMemberIds = new ArrayList<>();
+    @ElementCollection
+    List<Long> roleIds = new ArrayList<>();
+    @ElementCollection
+    List<Long> adminIds = new ArrayList<>();
 }

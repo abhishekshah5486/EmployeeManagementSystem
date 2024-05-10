@@ -7,13 +7,16 @@ import com.abhishek.employeemanagementsystem.Dtos.UpdateDepartmentRequestDto;
 import com.abhishek.employeemanagementsystem.Exceptions.DepartmentIDAlreadyExistsException;
 import com.abhishek.employeemanagementsystem.Exceptions.InvalidDepartmentIDException;
 import com.abhishek.employeemanagementsystem.Exceptions.InvalidPasswordForUsernameException;
+import com.abhishek.employeemanagementsystem.Exceptions.NoEmployeesFoundException;
 import com.abhishek.employeemanagementsystem.Models.Admin;
 import com.abhishek.employeemanagementsystem.Models.Department;
+import com.abhishek.employeemanagementsystem.Models.Employee;
 import com.abhishek.employeemanagementsystem.Models.LoginStatus;
 import com.abhishek.employeemanagementsystem.Repositories.DepartmentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -72,5 +75,14 @@ public class DepartmentServiceImpl implements DepartmentService {
             throw new InvalidDepartmentIDException("Invalid Department Id", id);
         }
         return department.get();
+    }
+
+    @Override
+    public List<Employee> getAllEmployeesByDepartmentId(Long id) {
+        List<Employee> allEmployees = departmentRepository.findAllEmployeesByDepartmentId(id);
+        if (allEmployees.isEmpty()){
+            throw new NoEmployeesFoundException("No Employees Found");
+        }
+        return allEmployees;
     }
 }
