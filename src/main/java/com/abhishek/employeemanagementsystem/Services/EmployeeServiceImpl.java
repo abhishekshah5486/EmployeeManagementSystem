@@ -69,4 +69,18 @@ public class EmployeeServiceImpl implements EmployeeService {
     public void deleteEmployee(Long id) {
         employeeRepository.deleteById(id);
     }
+
+    @Override
+    public Employee assignRoleToEmployee(Long employeeId, Role role) {
+        Employee employee = getEmployeeById(employeeId);
+        employee.setRole(role);
+        return employeeRepository.save(employee);
+    }
+
+    @Override
+    public Employee changeRoleToEmployee(Long employeeId, Role role) {
+        Employee employee = getEmployeeById(employeeId);
+        employee.setRole(role);
+        return employeeRepository.save(employee);
+    }
 }

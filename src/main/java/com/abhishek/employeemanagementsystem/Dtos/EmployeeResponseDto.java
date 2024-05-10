@@ -18,6 +18,7 @@ public class EmployeeResponseDto {
     private String departmentName;
     private String roleName;
     private LocalDate dateOfJoining;
+    private String message;
 
     public EmployeeResponseDto(Employee employee) {
         this.name = employee.getName();

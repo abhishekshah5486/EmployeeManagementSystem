@@ -136,6 +136,16 @@ public class GlobalExceptionHandler {
         return responseEntity;
     }
 
+    @ExceptionHandler(NoEmployeesFoundForRoleException.class)
+    public ResponseEntity<ExceptionDto> handleNoEmployeesFoundForRoleException(NoEmployeesFoundForRoleException e) {
+        ExceptionDto exceptionDto = new ExceptionDto();
+        exceptionDto.setMessage("No Employees Found for role Id : " + e.getId() + " " + e.getName());
+        exceptionDto.setResolution("NoEmployeesFoundForRoleException");
+        ResponseEntity<ExceptionDto> responseEntity = new ResponseEntity<>(exceptionDto, HttpStatus.BAD_REQUEST);
+        return responseEntity;
+    }
+
+
     @ExceptionHandler(InvalidDepartmentIDException.class)
     public ResponseEntity<ExceptionDto> handleInvalidDepartmentIDException(InvalidDepartmentIDException e) {
         ExceptionDto exceptionDto = new ExceptionDto();
