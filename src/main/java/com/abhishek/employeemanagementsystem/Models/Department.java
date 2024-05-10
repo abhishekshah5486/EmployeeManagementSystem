@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.scheduling.config.Task;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,4 +30,6 @@ public class Department {
     List<Long> roleIds = new ArrayList<>();
     @ElementCollection
     List<Long> adminIds = new ArrayList<>();
+    @OneToMany(mappedBy = "department")
+    List<Teams> teams = new ArrayList<>();
 }

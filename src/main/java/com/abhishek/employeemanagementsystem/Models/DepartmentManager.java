@@ -1,9 +1,6 @@
 package com.abhishek.employeemanagementsystem.Models;
 
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.PrePersist;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -15,6 +12,7 @@ import java.time.LocalDate;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@Entity
 public class DepartmentManager {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,8 +21,10 @@ public class DepartmentManager {
     private String email;
     private String username;
     private String password;
+    @ManyToOne
     private Department department;
     private LoginStatus loginStatus = LoginStatus.LOGGEDOUT;
+    private EmploymentStatus employmentStatus = EmploymentStatus.ACTIVE;
     private LocalDate dateOfJoining;
     private LocalDate dateOfLeaving;
     private LocalDate dateCreated;

@@ -6,26 +6,22 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-public class Executive {
+public class TeamLeader {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-
-
-    private LoginStatus loginStatus = LoginStatus.LOGGEDOUT;
-    private EmploymentStatus employmentStatus = EmploymentStatus.ACTIVE;
-    private LocalDate dateCreated;
-
-    @PrePersist
-    public void prePersist() {
-        dateCreated = LocalDate.now();
-    }
+    @OneToOne
+    private Employee employee;
+    @OneToOne
+    private Teams team;
+    @ElementCollection
+    private List<Long> memberIds = new ArrayList<>();
 }

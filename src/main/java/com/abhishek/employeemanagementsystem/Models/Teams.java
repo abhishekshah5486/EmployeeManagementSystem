@@ -6,26 +6,22 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.time.LocalDate;
+import java.util.List;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-public class Executive {
+public class Teams {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    private String name;
+    private String description;
 
-
-
-    private LoginStatus loginStatus = LoginStatus.LOGGEDOUT;
-    private EmploymentStatus employmentStatus = EmploymentStatus.ACTIVE;
-    private LocalDate dateCreated;
-
-    @PrePersist
-    public void prePersist() {
-        dateCreated = LocalDate.now();
-    }
+    @OneToMany(mappedBy = "team")
+    List<Employee> employees;
+    @ManyToOne
+    private Department department;
 }

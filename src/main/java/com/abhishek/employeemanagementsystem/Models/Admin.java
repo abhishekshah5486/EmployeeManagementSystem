@@ -26,4 +26,11 @@ public class Admin {
     private LocalDate dateOfJoining;
     private UserType userType = UserType.ADMIN;
     private LoginStatus loginStatus = LoginStatus.LOGGEDOUT;
+    private EmploymentStatus employmentStatus = EmploymentStatus.ACTIVE;
+    private LocalDate dateCreated;
+
+    @PrePersist
+    public void prePersist() {
+        dateCreated = LocalDate.now();
+    }
 }

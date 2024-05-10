@@ -1,12 +1,20 @@
 package com.abhishek.employeemanagementsystem.Models;
 
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.PrePersist;
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+@Entity
 public class OperationsManager {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -15,8 +23,10 @@ public class OperationsManager {
     private String email;
     private String username;
     private String password;
+    @OneToOne
     private Department department;
     private LoginStatus loginStatus = LoginStatus.LOGGEDOUT;
+    private EmploymentStatus employmentStatus = EmploymentStatus.ACTIVE;
     private LocalDate dateOfJoining;
     private LocalDate dateOfLeaving;
     private LocalDate dateCreated;
@@ -25,4 +35,6 @@ public class OperationsManager {
     public void prePersist() {
         dateCreated = LocalDate.now();
     }
+    @ElementCollection
+    List<Long> departmentManagerIds = new ArrayList<>();
 }

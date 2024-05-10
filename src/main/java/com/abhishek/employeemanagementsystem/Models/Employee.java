@@ -23,7 +23,17 @@ public class Employee {
     private Department department;
     @ManyToOne
     private Role role;
+    @ManyToOne
+    private Teams team;
     private LocalDate dateOfJoining;
     private UserType userType = UserType.EMPLOYEE;
     private LoginStatus loginStatus = LoginStatus.LOGGEDOUT;
+    private EmploymentStatus employmentStatus = EmploymentStatus.ACTIVE;
+
+    private LocalDate dateCreated;
+
+    @PrePersist
+    public void prePersist() {
+        dateCreated = LocalDate.now();
+    }
 }
