@@ -81,9 +81,11 @@ public class TeamController {
     // Assign a team leader to the existing team
     @PutMapping("/{teamId}/team-leader/{teamLeaderId}")
     public AssignTeamLeaderResponseDto assignTeamLeader(@PathVariable Long teamId, @PathVariable Long teamLeaderId) {
+        teamService.assignTeamLeader(teamId, teamLeaderId);
         AssignTeamLeaderResponseDto assignTeamLeaderResponseDto = new AssignTeamLeaderResponseDto();
         assignTeamLeaderResponseDto.setTeamLeaderId(teamLeaderId);
         assignTeamLeaderResponseDto.setTeamId(teamId);
+        assignTeamLeaderResponseDto.setMessage("Team leader assigned successfully");
         return assignTeamLeaderResponseDto;
     }
 }

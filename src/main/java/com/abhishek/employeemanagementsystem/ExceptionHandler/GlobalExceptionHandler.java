@@ -172,6 +172,14 @@ public class GlobalExceptionHandler {
         return responseEntity;
     }
 
+    @ExceptionHandler(NoTeamLeadersFoundException.class)
+    public ResponseEntity<ExceptionDto> handleNoTeamLeadersFoundException(NoTeamLeadersFoundException e) {
+        ExceptionDto exceptionDto = new ExceptionDto();
+        exceptionDto.setMessage("No Team Leaders Found");
+        exceptionDto.setResolution("NoTeamLeadersFoundException");
+        return new ResponseEntity<>(exceptionDto, HttpStatus.BAD_REQUEST);
+    }
+
     //    @ExceptionHandler(RuntimeException.class)
 //    public ResponseEntity<ExceptionDto> handleRuntimeException(RuntimeException e) {
 //        ExceptionDto exceptionDto = new ExceptionDto();
