@@ -39,13 +39,13 @@ public class TeamController {
     public TeamRetrieveResponseDto retrieveTeam(@PathVariable Long id) {
         Teams team = teamService.getTeamById(id);
         TeamRetrieveResponseDto teamRetrieveResponseDto = modelMapper.map(team, TeamRetrieveResponseDto.class);
-        teamRetrieveResponseDto.setTeamLeaderResponseDto(modelMapper.map(team.getTeamLeader(), TeamLeaderResponseDto.class));
-        teamRetrieveResponseDto.setDepartmentResponseDto(modelMapper.map(team.getDepartment(), DepartmentResponseDto.class));
-        teamRetrieveResponseDto.setFinanceManagerResponseDto(modelMapper.map(team.getFinanceManager(), FinanceManagerResponseDto.class));
-        teamRetrieveResponseDto.setMarketManagerResponseDto(modelMapper.map(team.getMarketManager(), MarketManagerResponseDto.class));
-        teamRetrieveResponseDto.setProjectManagerResponseDto(modelMapper.map(team.getProjectManager(), ProjectManagerResponseDto.class));
-        teamRetrieveResponseDto.setRiskManagerResponseDto(modelMapper.map(team.getRiskManager(), RiskManagerResponseDto.class));
-        teamRetrieveResponseDto.setTechnicalManagerResponseDto(modelMapper.map(team.getTechnicalManager(), TechnicalManagerResponseDto.class));
+        if (team.getTeamLeader() != null) teamRetrieveResponseDto.setTeamLeaderResponseDto(modelMapper.map(team.getTeamLeader(), TeamLeaderResponseDto.class));
+        if (team.getDepartment() != null) teamRetrieveResponseDto.setDepartmentResponseDto(modelMapper.map(team.getDepartment(), DepartmentResponseDto.class));
+        if (team.getFinanceManager() != null) teamRetrieveResponseDto.setFinanceManagerResponseDto(modelMapper.map(team.getFinanceManager(), FinanceManagerResponseDto.class));
+        if (team.getMarketManager() != null) teamRetrieveResponseDto.setMarketManagerResponseDto(modelMapper.map(team.getMarketManager(), MarketManagerResponseDto.class));
+        if (team.getProjectManager() != null) teamRetrieveResponseDto.setProjectManagerResponseDto(modelMapper.map(team.getProjectManager(), ProjectManagerResponseDto.class));
+        if (team.getRiskManager() != null) teamRetrieveResponseDto.setRiskManagerResponseDto(modelMapper.map(team.getRiskManager(), RiskManagerResponseDto.class));
+        if (team.getTechnicalManager() != null) teamRetrieveResponseDto.setTechnicalManagerResponseDto(modelMapper.map(team.getTechnicalManager(), TechnicalManagerResponseDto.class));
         List<Admin> admins = team.getAdmins();
         List<AdminResponseDto> adminResponseDtos = new ArrayList<>();
         for (Admin admin : admins) {

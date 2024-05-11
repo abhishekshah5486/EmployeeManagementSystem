@@ -118,14 +118,14 @@ public class GlobalExceptionHandler {
         return responseEntity;
     }
 
-    @ExceptionHandler(RuntimeException.class)
-    public ResponseEntity<ExceptionDto> handleRuntimeException(RuntimeException e) {
-        ExceptionDto exceptionDto = new ExceptionDto();
-        exceptionDto.setMessage("Something went wrong");
-        exceptionDto.setResolution("RuntimeException");
-        ResponseEntity<ExceptionDto> responseEntity = new ResponseEntity<>(exceptionDto, HttpStatus.INTERNAL_SERVER_ERROR);
-        return responseEntity;
-    }
+//    @ExceptionHandler(RuntimeException.class)
+//    public ResponseEntity<ExceptionDto> handleRuntimeException(RuntimeException e) {
+//        ExceptionDto exceptionDto = new ExceptionDto();
+//        exceptionDto.setMessage("Something went wrong");
+//        exceptionDto.setResolution("RuntimeException");
+//        ResponseEntity<ExceptionDto> responseEntity = new ResponseEntity<>(exceptionDto, HttpStatus.INTERNAL_SERVER_ERROR);
+//        return responseEntity;
+//    }
 
     @ExceptionHandler(RoleNotFoundException.class)
     public ResponseEntity<ExceptionDto> handleRoleNotFoundException(RoleNotFoundException e) {
