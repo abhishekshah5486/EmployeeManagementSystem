@@ -11,10 +11,8 @@ import java.time.LocalDate;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class TeamLeaderResponseDto {
-    private int id;
+public class TeamLeaderRequestDto {
     private String name;
     private String email;
     private LocalDate dateOfJoining;
-    private String message;
 }

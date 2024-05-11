@@ -10,4 +10,5 @@ public interface TeamService {
     Teams getTeamById(Long id);
     List<Teams> retrieveAllTeams();
     void deleteTeamById(Long id);
+    Teams assignTeamLeader(Long teamId, Long teamLeaderId);
 }

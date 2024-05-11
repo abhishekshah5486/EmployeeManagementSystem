@@ -77,4 +77,13 @@ public class TeamController {
     public void deleteTeamById(@PathVariable Long id) {
         teamService.deleteTeamById(id);
     }
+
+    // Assign a team leader to the existing team
+    @PutMapping("/{teamId}/team-leader/{teamLeaderId}")
+    public AssignTeamLeaderResponseDto assignTeamLeader(@PathVariable Long teamId, @PathVariable Long teamLeaderId) {
+        AssignTeamLeaderResponseDto assignTeamLeaderResponseDto = new AssignTeamLeaderResponseDto();
+        assignTeamLeaderResponseDto.setTeamLeaderId(teamLeaderId);
+        assignTeamLeaderResponseDto.setTeamId(teamId);
+        return assignTeamLeaderResponseDto;
+    }
 }

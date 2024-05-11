@@ -2,7 +2,6 @@ package com.abhishek.employeemanagementsystem.ExceptionHandler;
 
 import com.abhishek.employeemanagementsystem.Dtos.ExceptionDto;
 import com.abhishek.employeemanagementsystem.Exceptions.*;
-import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -160,6 +159,15 @@ public class GlobalExceptionHandler {
         ExceptionDto exceptionDto = new ExceptionDto();
         exceptionDto.setMessage("Department ID : " + e.getId() + " is not correct");
         exceptionDto.setResolution("InvalidDepartmentIDException");
+        ResponseEntity<ExceptionDto> responseEntity = new ResponseEntity<>(exceptionDto, HttpStatus.BAD_REQUEST);
+        return responseEntity;
+    }
+
+    @ExceptionHandler(InvalidTeamLeaderIDException.class)
+    public ResponseEntity<ExceptionDto> handleInvalidTeamLeaderIDException(InvalidTeamLeaderIDException e) {
+        ExceptionDto exceptionDto = new ExceptionDto();
+        exceptionDto.setMessage("Team ID : " + e.getId() + " is not correct");
+        exceptionDto.setResolution("InvalidTeamLeaderIDException");
         ResponseEntity<ExceptionDto> responseEntity = new ResponseEntity<>(exceptionDto, HttpStatus.BAD_REQUEST);
         return responseEntity;
     }
