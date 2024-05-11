@@ -9,9 +9,9 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class TeamResponseDto {
-    private Long teamId;
-    private String teamName;
-    private String teamDescription;
+public class CreateTeamResponseDto {
+    private Long id;
+    private String name;
+    private String description;
     private String message;
 }

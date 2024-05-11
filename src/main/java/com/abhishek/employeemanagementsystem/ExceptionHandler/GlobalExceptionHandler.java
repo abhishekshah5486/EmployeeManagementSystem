@@ -145,6 +145,14 @@ public class GlobalExceptionHandler {
         return responseEntity;
     }
 
+    @ExceptionHandler(InvalidTeamIDException.class)
+    public ResponseEntity<ExceptionDto> handleInvalidTeamIDException(InvalidTeamIDException e) {
+        ExceptionDto exceptionDto = new ExceptionDto();
+        exceptionDto.setMessage("No team found for the ID : " + e.getId());
+        exceptionDto.setResolution("InvalidTeamIDException");
+        ResponseEntity<ExceptionDto> responseEntity = new ResponseEntity<>(exceptionDto, HttpStatus.BAD_REQUEST);
+        return responseEntity;
+    }
 
     @ExceptionHandler(InvalidDepartmentIDException.class)
     public ResponseEntity<ExceptionDto> handleInvalidDepartmentIDException(InvalidDepartmentIDException e) {
@@ -155,13 +163,13 @@ public class GlobalExceptionHandler {
         return responseEntity;
     }
 
-    @ExceptionHandler(Exception.class)
-    public ResponseEntity<ExceptionDto> handleException(Exception e) {
-        ExceptionDto exceptionDto = new ExceptionDto();
-        exceptionDto.setMessage("Something went wrong");
-        exceptionDto.setResolution("GeneralException");
-        ResponseEntity<ExceptionDto> responseEntity = new ResponseEntity<>(exceptionDto, HttpStatus.INTERNAL_SERVER_ERROR);
-        return responseEntity;
-    }
+//    @ExceptionHandler(Exception.class)
+//    public ResponseEntity<ExceptionDto> handleException(Exception e) {
+//        ExceptionDto exceptionDto = new ExceptionDto();
+//        exceptionDto.setMessage("Something went wrong");
+//        exceptionDto.setResolution("GeneralException");
+//        ResponseEntity<ExceptionDto> responseEntity = new ResponseEntity<>(exceptionDto, HttpStatus.INTERNAL_SERVER_ERROR);
+//        return responseEntity;
+//    }
 
 }

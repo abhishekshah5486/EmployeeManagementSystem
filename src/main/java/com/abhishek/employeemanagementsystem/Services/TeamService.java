@@ -5,4 +5,5 @@ import com.abhishek.employeemanagementsystem.Models.Teams;
 
 public interface TeamService {
     Teams createTeam(TeamRequestDto teamRequestDto);
+    Teams getTeamById(Long id);
 }
