@@ -118,14 +118,6 @@ public class GlobalExceptionHandler {
         return responseEntity;
     }
 
-//    @ExceptionHandler(RuntimeException.class)
-//    public ResponseEntity<ExceptionDto> handleRuntimeException(RuntimeException e) {
-//        ExceptionDto exceptionDto = new ExceptionDto();
-//        exceptionDto.setMessage("Something went wrong");
-//        exceptionDto.setResolution("RuntimeException");
-//        ResponseEntity<ExceptionDto> responseEntity = new ResponseEntity<>(exceptionDto, HttpStatus.INTERNAL_SERVER_ERROR);
-//        return responseEntity;
-//    }
 
     @ExceptionHandler(RoleNotFoundException.class)
     public ResponseEntity<ExceptionDto> handleRoleNotFoundException(RoleNotFoundException e) {
@@ -141,6 +133,15 @@ public class GlobalExceptionHandler {
         ExceptionDto exceptionDto = new ExceptionDto();
         exceptionDto.setMessage("No Employees Found for role Id : " + e.getId() + " " + e.getName());
         exceptionDto.setResolution("NoEmployeesFoundForRoleException");
+        ResponseEntity<ExceptionDto> responseEntity = new ResponseEntity<>(exceptionDto, HttpStatus.BAD_REQUEST);
+        return responseEntity;
+    }
+
+    @ExceptionHandler(NoTeamsFoundException.class)
+    public ResponseEntity<ExceptionDto> handleNoTeamsFoundException(NoTeamsFoundException e) {
+        ExceptionDto exceptionDto = new ExceptionDto();
+        exceptionDto.setMessage("No Teams Found");
+        exceptionDto.setResolution("NoTeamsFoundException");
         ResponseEntity<ExceptionDto> responseEntity = new ResponseEntity<>(exceptionDto, HttpStatus.BAD_REQUEST);
         return responseEntity;
     }
@@ -162,6 +163,16 @@ public class GlobalExceptionHandler {
         ResponseEntity<ExceptionDto> responseEntity = new ResponseEntity<>(exceptionDto, HttpStatus.BAD_REQUEST);
         return responseEntity;
     }
+
+    //    @ExceptionHandler(RuntimeException.class)
+//    public ResponseEntity<ExceptionDto> handleRuntimeException(RuntimeException e) {
+//        ExceptionDto exceptionDto = new ExceptionDto();
+//        exceptionDto.setMessage("Something went wrong");
+//        exceptionDto.setResolution("RuntimeException");
+//        ResponseEntity<ExceptionDto> responseEntity = new ResponseEntity<>(exceptionDto, HttpStatus.INTERNAL_SERVER_ERROR);
+//        return responseEntity;
+//    }
+
 
 //    @ExceptionHandler(Exception.class)
 //    public ResponseEntity<ExceptionDto> handleException(Exception e) {

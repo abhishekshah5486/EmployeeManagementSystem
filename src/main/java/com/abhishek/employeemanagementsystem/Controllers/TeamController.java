@@ -36,7 +36,7 @@ public class TeamController {
 
     // Retrieve Team Details By Id
     @GetMapping("/{id}")
-    public TeamRetrieveResponseDto retrieveTeam(@PathVariable Long id) {
+    public TeamRetrieveResponseDto retrieveTeamById(@PathVariable Long id) {
         Teams team = teamService.getTeamById(id);
         TeamRetrieveResponseDto teamRetrieveResponseDto = modelMapper.map(team, TeamRetrieveResponseDto.class);
         if (team.getTeamLeader() != null) teamRetrieveResponseDto.setTeamLeaderResponseDto(modelMapper.map(team.getTeamLeader(), TeamLeaderResponseDto.class));
@@ -59,5 +59,22 @@ public class TeamController {
         }
         teamRetrieveResponseDto.setProjectResponseDtos(projectResponseDtos);
         return teamRetrieveResponseDto;
+    }
+
+    // Retrieve All Teams
+    @GetMapping("/")
+    public List<RetrieveAllTeamsResponseDto> retrieveAllTeams() {
+        List<Teams> allTeams = teamService.retrieveAllTeams();
+        List<RetrieveAllTeamsResponseDto> retrieveAllTeamsResponseDtos = new ArrayList<>();
+        for (Teams team : allTeams) {
+            retrieveAllTeamsResponseDtos.add(modelMapper.map(team, RetrieveAllTeamsResponseDto.class));
+        }
+        return retrieveAllTeamsResponseDtos;
+    }
+
+    // Delete a team by id
+    @DeleteMapping("/{id}")
+    public void deleteTeamById(@PathVariable Long id) {
+        teamService.deleteTeamById(id);
     }
 }
