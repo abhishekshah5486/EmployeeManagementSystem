@@ -16,7 +16,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-public class RiskManager {
+public class TechnicalManager {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -29,7 +29,7 @@ public class RiskManager {
     @OneToMany
     private List<Project> projectList = new ArrayList<>();
     private LocalDate dateOfJoining;
-    private UserType userType = UserType.RISK_MANAGER;
+    private UserType userType = UserType.TECHNICAL_MANAGER;
     private LoginStatus loginStatus = LoginStatus.LOGGEDOUT;
     private EmploymentStatus employmentStatus = EmploymentStatus.ACTIVE;
 
