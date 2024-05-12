@@ -9,9 +9,9 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class ProjectManagerNotAssignedToTeamException extends RuntimeException {
+public class NoFinanceManagerAssignedToTeamException extends RuntimeException {
     private Long id;
-    public ProjectManagerNotAssignedToTeamException(String message, Long id) {
+    public NoFinanceManagerAssignedToTeamException(String message, Long id) {
         super(message);
         this.id = id;
     }

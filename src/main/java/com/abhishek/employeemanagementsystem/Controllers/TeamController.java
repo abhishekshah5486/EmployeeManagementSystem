@@ -144,18 +144,85 @@ public class TeamController {
     // Assigning Project Manager To Team
     @PostMapping("/{teamId}/project-manager/{projectManagerId}")
     public ResponseEntity<String> assignProjectManagerToTeam(@PathVariable Long teamId, @PathVariable Long projectManagerId) {
+        teamService.aasignProjectManagerToTeam(teamId, projectManagerId);
         return ResponseEntity.ok("Project Manager assigned to team Id " + teamId + " successfully.");
     }
 
     // Updating Project Manager of a Team
     @PutMapping("/{teamId}/project-manager/{projectManagerId}")
     public ResponseEntity<String> updateProjectManagerToTeam(@PathVariable Long teamId, @PathVariable Long projectManagerId) {
+        teamService.updateProjectManagerToTeam(teamId, projectManagerId);
         return ResponseEntity.ok("Project Manager updated successfully.");
     }
 
     // Removing Project Manager From a team
     @DeleteMapping("/{teamId}/project-manager/{projectManagerId}")
     public ResponseEntity<String> deleteProjectManagerFromTeam(@PathVariable Long teamId, @PathVariable Long projectManagerId) {
+        teamService.deleteProjectManagerFromTeam(teamId, projectManagerId);
         return ResponseEntity.ok("Project Manager removed from team successfully.");
     }
+
+    // Assigning Market Manager To Team
+    @PostMapping("/{teamId}/market-manager/{marketManagerId}")
+    public ResponseEntity<String> assignMarketManagerToTeam(@PathVariable Long teamId, @PathVariable Long marketManagerId) {
+        teamService.assignMarketManagerToTeam(teamId, marketManagerId);
+        return ResponseEntity.ok("Market Manager assigned to team Id " + teamId + " successfully.");
+    }
+
+    // Updating Market Manager of a Team
+    @PutMapping("/{teamId}/market-manager/{marketManagerId}")
+    public ResponseEntity<String> updateMarketManagerToTeam(@PathVariable Long teamId, @PathVariable Long marketManagerId) {
+        teamService.updateMarketManagerToTeam(teamId, marketManagerId);
+        return ResponseEntity.ok("Market Manager updated successfully.");
+    }
+
+    // Removing Market Manager From a team
+    @DeleteMapping("/{teamId}/market-manager/{marketManagerId}")
+    public ResponseEntity<String> deleteMarketManagerFromTeam(@PathVariable Long teamId, @PathVariable Long marketManagerId) {
+        teamService.deleteMarketManagerFromTeam(teamId, marketManagerId);
+        return ResponseEntity.ok("Market Manager removed from team successfully.");
+    }
+
+    // Assigning Finance Manager To Team
+    @PostMapping("/{teamId}/finance-manager/{financeManagerId}")
+    public ResponseEntity<String> assignFinanceManagerToTeam(@PathVariable Long teamId, @PathVariable Long financeManagerId) {
+        teamService.assignFinanceManagerToTeam(teamId, financeManagerId);
+        return ResponseEntity.ok("Finance Manager assigned to team Id " + teamId + " successfully.");
+    }
+
+    // Updating Finance Manager of a Team
+    @PutMapping("/{teamId}/finance-manager/{financeManagerId}")
+    public ResponseEntity<String> updateFinanceManagerToTeam(@PathVariable Long teamId, @PathVariable Long financeManagerId) {
+        teamService.updateFinanceManagerToTeam(teamId, financeManagerId);
+        return ResponseEntity.ok("Finance Manager updated successfully.");
+    }
+
+    // Removing Finance Manager From a team
+    @DeleteMapping("/{teamId}/finance-manager/{financeManagerId}")
+    public ResponseEntity<String> deleteFinanceManagerFromTeam(@PathVariable Long teamId, @PathVariable Long financeManagerId) {
+        teamService.deleteFinanceManagerFromTeam(teamId, financeManagerId);
+        return ResponseEntity.ok("Finance Manager removed from team successfully.");
+    }
+
+    // Assigning Technical Manager To Team
+    @PostMapping("/{teamId}/technical-manager/{technicalManagerId}")
+    public ResponseEntity<String> assignTechnicalManagerToTeam(@PathVariable Long teamId, @PathVariable Long technicalManagerId) {
+        teamService.assignTechnicalManagerToTeam(teamId, technicalManagerId);
+        return ResponseEntity.ok("Technical Manager assigned to team Id " + teamId + " successfully.");
+    }
+
+    // Updating Technical Manager of a Team
+    @PutMapping("/{teamId}/technical-manager/{technicalManagerId}")
+    public ResponseEntity<String> updateTechnicalManagerToTeam(@PathVariable Long teamId, @PathVariable Long technicalManagerId) {
+        teamService.updateTechnicalManagerToTeam(teamId, technicalManagerId);
+        return ResponseEntity.ok("Technical Manager updated successfully.");
+    }
+
+    // Removing Technical Manager From a team
+    @DeleteMapping("/{teamId}/technical-manager/{technicalManagerId}")
+    public ResponseEntity<String> deleteTechnicalManagerFromTeam(@PathVariable Long teamId, @PathVariable Long technicalManagerId) {
+        teamService.deleteTechnicalManagerFromTeam(teamId, technicalManagerId);
+        return ResponseEntity.ok("Technical Manager removed from team successfully.");
+    }
+
 }

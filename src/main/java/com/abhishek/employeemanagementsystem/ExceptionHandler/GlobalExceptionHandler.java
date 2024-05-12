@@ -369,6 +369,60 @@ public class GlobalExceptionHandler {
         return responseEntity;
     }
 
+    @ExceptionHandler(NoProjectManagerAssignedToTeamException.class)
+    public ResponseEntity<ExceptionDto> handleNoProjectManagerAssignedToTeamException(NoProjectManagerAssignedToTeamException e) {
+        ExceptionDto exceptionDto = new ExceptionDto();
+        exceptionDto.setMessage("No Project Manager Assigned to Team ID " + e.getId());
+        exceptionDto.setResolution("NoProjectManagerAssignedToTeamException");
+        ResponseEntity<ExceptionDto> responseEntity = new ResponseEntity<>(exceptionDto, HttpStatus.BAD_REQUEST);
+        return responseEntity;
+    }
+
+    @ExceptionHandler(ProjectManagerAlreadyAssignedToTeamException.class)
+    public ResponseEntity<ExceptionDto> handleProjectManagerAlreadyAssignedToTeamException(ProjectManagerAlreadyAssignedToTeamException e) {
+        ExceptionDto exceptionDto = new ExceptionDto();
+        exceptionDto.setMessage("Project Manager Already Assigned to Team ID " + e.getId());
+        exceptionDto.setResolution("ProjectManagerAlreadyAssignedToTeamException");
+        ResponseEntity<ExceptionDto> responseEntity = new ResponseEntity<>(exceptionDto, HttpStatus.BAD_REQUEST);
+        return responseEntity;
+    }
+
+    @ExceptionHandler(MarketManagerAlreadyAssignedToTeamException.class)
+    public ResponseEntity<ExceptionDto> handleMarketManagerAlreadyAssignedToTeamException(MarketManagerAlreadyAssignedToTeamException e) {
+        ExceptionDto exceptionDto = new ExceptionDto();
+        exceptionDto.setMessage("Market Manager Already Assigned to Team ID " + e.getId());
+        exceptionDto.setResolution("MarketManagerAlreadyAssignedToTeamException");
+        ResponseEntity<ExceptionDto> responseEntity = new ResponseEntity<>(exceptionDto, HttpStatus.BAD_REQUEST);
+        return responseEntity;
+    }
+
+    @ExceptionHandler(NoMarketManagerAssignedToTeamException.class)
+    public ResponseEntity<ExceptionDto> handleNoMarketManagerAssignedToTeamException(NoMarketManagerAssignedToTeamException e) {
+        ExceptionDto exceptionDto = new ExceptionDto();
+        exceptionDto.setMessage("No Market Manager Assigned to Team ID " + e.getId());
+        exceptionDto.setResolution("NoMarketManagerAssignedToTeamException");
+        ResponseEntity<ExceptionDto> responseEntity = new ResponseEntity<>(exceptionDto, HttpStatus.BAD_REQUEST);
+        return responseEntity;
+    }
+
+    @ExceptionHandler(FinanceManagerAlreadyAssignedToTeamException.class)
+    public ResponseEntity<ExceptionDto> handleFinanceManagerAlreadyAssignedToTeamException(FinanceManagerAlreadyAssignedToTeamException e) {
+        ExceptionDto exceptionDto = new ExceptionDto();
+        exceptionDto.setMessage("Finance Manager Already Assigned to Team ID " + e.getId());
+        exceptionDto.setResolution("FinanceManagerAlreadyAssignedToTeamException");
+        ResponseEntity<ExceptionDto> responseEntity = new ResponseEntity<>(exceptionDto, HttpStatus.BAD_REQUEST);
+        return responseEntity;
+    }
+
+    @ExceptionHandler(NoFinanceManagerAssignedToTeamException.class)
+    public ResponseEntity<ExceptionDto> handleFinanceManagerAssignedToTeamException(NoFinanceManagerAssignedToTeamException e) {
+        ExceptionDto exceptionDto = new ExceptionDto();
+        exceptionDto.setMessage("No Finance Manager Assigned to Team ID " + e.getId());
+        exceptionDto.setResolution("NoFinanceManagerAssignedToTeamException");
+        ResponseEntity<ExceptionDto> responseEntity = new ResponseEntity<>(exceptionDto, HttpStatus.BAD_REQUEST);
+        return responseEntity;
+    }
+
     @ExceptionHandler(RuntimeException.class)
     public ResponseEntity<ExceptionDto> handleRuntimeException(RuntimeException e) {
         ExceptionDto exceptionDto = new ExceptionDto();

@@ -211,7 +211,7 @@ public class TeamServiceImpl implements TeamService {
         ProjectManager projectManager = projectManagerService.getProjectManagerById(projectManagerId);
         // Check if the project manager has been assigned to the team or not
         if (team.getProjectManager() == null){
-            throw new ProjectManagerNotAssignedToTeamException("Unable to update the project manager !" +
+            throw new NoProjectManagerAssignedToTeamException("Unable to update the project manager !" +
                     "No Project Manager has been assigned to this team." +
                     "Please assign a project manager to the team.", teamId);
         }
@@ -224,9 +224,131 @@ public class TeamServiceImpl implements TeamService {
         // Fetch team by team id and project manager by projectManagerId
         Teams team = getTeamById(teamId);
         if (team.getProjectManager() == null){
-            throw new ProjectManagerNotAssignedToTeamException("No Project Manager with this id has been assigned to team", teamId);
+            throw new NoProjectManagerAssignedToTeamException("No Project Manager with this id has been assigned to team", teamId);
         }
         team.setProjectManager(null);
         teamRepository.save(team);
     }
+
+    @Override
+    public Teams assignMarketManagerToTeam(Long teamId, Long marketManagerId) {
+        // Fetch team by team id and market manager by marketManagerId
+        Teams team = getTeamById(teamId);
+        MarketManager marketManager = marketManagerService.getMarketManagerById(marketManagerId);
+        // Check if the market manager has already been assigned to the team
+        if (team.getMarketManager() != null){
+            throw new MarketManagerAlreadyAssignedToTeamException("Market Manager has already been assigned " +
+                    "to this team", teamId);
+        }
+        team.setMarketManager(marketManager);
+        return teamRepository.save(team);
+    }
+
+    @Override
+    public Teams updateMarketManagerToTeam(Long teamId, Long marketManagerId) {
+        // Fetch team by team id and market manager by marketManagerId
+        Teams team = getTeamById(teamId);
+        MarketManager marketManager = marketManagerService.getMarketManagerById(marketManagerId);
+        // Check if the market manager has been assigned to the team or not
+        if (team.getMarketManager() == null){
+            throw new NoMarketManagerAssignedToTeamException("Unable to update the market manager !" +
+                    "No Market Manager has been assigned to this team." +
+                    "Please assign a market manager to the team.", teamId);
+        }
+        team.setMarketManager(marketManager);
+        return teamRepository.save(team);
+    }
+
+    @Override
+    public void deleteMarketManagerFromTeam(Long teamId, Long marketManagerId) {
+        // Fetch team by team id and market manager by marketManagerId
+        Teams team = getTeamById(teamId);
+        if (team.getMarketManager() == null){
+            throw new NoMarketManagerAssignedToTeamException("No Market Manager with this id has been assigned to team", teamId);
+        }
+        team.setMarketManager(null);
+        teamRepository.save(team);
+    }
+
+    @Override
+    public Teams assignFinanceManagerToTeam(Long teamId, Long financeManagerId) {
+        // Fetch team by team id and finance manager by financeManagerId
+        Teams team = getTeamById(teamId);
+        FinanceManager financeManager = financeManagerService.getFinanceManagerById(financeManagerId);
+        // Check if the finance manager has already been assigned to the team
+        if (team.getFinanceManager() != null){
+            throw new FinanceManagerAlreadyAssignedToTeamException("Finance Manager has already been assigned " +
+                    "to this team", teamId);
+        }
+        team.setFinanceManager(financeManager);
+        return teamRepository.save(team);
+    }
+
+    @Override
+    public Teams updateFinanceManagerToTeam(Long teamId, Long financeManagerId) {
+        // Fetch team by team id and finance manager by financeManagerId
+        Teams team = getTeamById(teamId);
+        FinanceManager financeManager = financeManagerService.getFinanceManagerById(financeManagerId);
+        // Check if the finance manager has been assigned to the team or not
+        if (team.getFinanceManager() == null){
+            throw new NoFinanceManagerAssignedToTeamException("Unable to update the finance manager !" +
+                    "No Finance Manager has been assigned to this team." +
+                    "Please assign a finance manager to the team.", teamId);
+        }
+        team.setFinanceManager(financeManager);
+        return teamRepository.save(team);
+    }
+
+    @Override
+    public void deleteFinanceManagerFromTeam(Long teamId, Long financeManagerId) {
+        // Fetch team by team id and finance manager by financeManagerId
+        Teams team = getTeamById(teamId);
+        if (team.getFinanceManager() == null){
+            throw new NoFinanceManagerAssignedToTeamException("No Finance Manager with this id has been assigned to team", teamId);
+        }
+        team.setFinanceManager(null);
+        teamRepository.save(team);
+    }
+
+    @Override
+    public Teams assignTechnicalManagerToTeam(Long teamId, Long technicalManagerId) {
+        // Fetch team by team id and technical manager by technicalManagerId
+        Teams team = getTeamById(teamId);
+        TechnicalManager technicalManager = technicalManagerService.getTechnicalManagerById(technicalManagerId);
+        // Check if the technical manager has already been assigned to the team
+        if (team.getTechnicalManager() != null){
+            throw new TechnicalManagerAlreadyAssignedToTeamException("Technical Manager has already been assigned " +
+                    "to this team", teamId);
+        }
+        team.setTechnicalManager(technicalManager);
+        return teamRepository.save(team);
+    }
+
+    @Override
+    public Teams updateTechnicalManagerToTeam(Long teamId, Long technicalManagerId) {
+        // Fetch team by team id and technical manager by technicalManagerId
+        Teams team = getTeamById(teamId);
+        TechnicalManager technicalManager = technicalManagerService.getTechnicalManagerById(technicalManagerId);
+        // Check if the technical manager has been assigned to the team or not
+        if (team.getTechnicalManager() == null){
+            throw new NoTechnicalManagerAssignedToTeamException("Unable to update the technical manager !" +
+                    "No Technical Manager has been assigned to this team." +
+                    "Please assign a technical manager to the team.", teamId);
+        }
+        team.setTechnicalManager(technicalManager);
+        return teamRepository.save(team);
+    }
+
+    @Override
+    public void deleteTechnicalManagerFromTeam(Long teamId, Long technicalManagerId) {
+        // Fetch team by team id and technical manager by technicalManagerId
+        Teams team = getTeamById(teamId);
+        if (team.getTechnicalManager() == null){
+            throw new NoTechnicalManagerAssignedToTeamException("No Technical Manager with this id has been assigned to team", teamId);
+        }
+        team.setTechnicalManager(null);
+        teamRepository.save(team);
+    }
+
+
 }

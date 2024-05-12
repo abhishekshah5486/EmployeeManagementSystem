@@ -20,4 +20,13 @@ public interface TeamService {
     Teams aasignProjectManagerToTeam(Long teamId, Long projectManagerId);
     Teams updateProjectManagerToTeam(Long teamId, Long projectManagerId);
     void deleteProjectManagerFromTeam(Long teamId, Long projectManagerId);
+    Teams assignMarketManagerToTeam(Long teamId, Long marketManagerId);
+    Teams updateMarketManagerToTeam(Long teamId, Long marketManagerId);
+    void deleteMarketManagerFromTeam(Long teamId, Long marketManagerId);
+    Teams assignFinanceManagerToTeam(Long teamId, Long financeManagerId);
+    Teams updateFinanceManagerToTeam(Long teamId, Long financeManagerId);
+    void deleteFinanceManagerFromTeam(Long teamId, Long financeManagerId);
+    Teams assignTechnicalManagerToTeam(Long teamId, Long technicalManagerId);
+    Teams updateTechnicalManagerToTeam(Long teamId, Long technicalManagerId);
+    void deleteTechnicalManagerFromTeam(Long teamId, Long technicalManagerId);
 }
