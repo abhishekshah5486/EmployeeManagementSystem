@@ -117,12 +117,28 @@ public class TeamController {
     // Assigning/ Adding Admin to the team
     @PostMapping("/{teamId}/admin/{adminId}")
     public ResponseEntity<String> assignAdminToTeam(@PathVariable Long teamId, @PathVariable Long adminId) {
-        return ResponseEntity.ok("Admin assigned to team successfully.");
+        teamService.assignAdminToTeam(teamId, adminId);
+        return ResponseEntity.ok("Admin assigned to team Id " + teamId + " successfully.");
     }
 
     // Removing an Admin From a Team
     @DeleteMapping("/{teamId}/admin/{adminId}")
     public ResponseEntity<String> deleteAdminFromTeam(@PathVariable Long teamId, @PathVariable Long adminId) {
+        teamService.deleteAdminFromTeam(teamId, adminId);
         return ResponseEntity.ok("Admin removed from team successfully.");
+    }
+
+    // Assigning Team to a department
+    @PostMapping("/{teamId}/department/{departmentId}")
+    public ResponseEntity<String> assignDepartmentToTeam(@PathVariable Long teamId, @PathVariable Long departmentId) {
+        teamService.assignDepartmentToTeam(teamId, departmentId);
+        return ResponseEntity.ok("Department assigned to team Id " + teamId +  " successfully.");
+    }
+
+    // Updating Department of a team
+    @PutMapping("/{teamId}/department/{departmentId}")
+    public ResponseEntity<String> updateTeamDepartment(@PathVariable Long teamId, @PathVariable Long departmentId) {
+        teamService.updateTeamDepartment(teamId, departmentId);
+        return ResponseEntity.ok("Department updated successfully.");
     }
 }

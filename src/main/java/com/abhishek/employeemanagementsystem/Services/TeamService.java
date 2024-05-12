@@ -15,4 +15,6 @@ public interface TeamService {
     void deleteEmployeeFromTeam(Long teamId, Long employeeId);
     Teams assignAdminToTeam(Long teamId, Long adminId);
     void deleteAdminFromTeam(Long teamId, Long adminId);
+    Teams assignDepartmentToTeam(Long teamId, Long departmentId);
+    Teams updateTeamDepartment(Long teamId, Long departmentId);
 }

@@ -2,10 +2,7 @@ package com.abhishek.employeemanagementsystem.Services;
 
 import com.abhishek.employeemanagementsystem.Dtos.TeamRequestDto;
 import com.abhishek.employeemanagementsystem.Exceptions.*;
-import com.abhishek.employeemanagementsystem.Models.Admin;
-import com.abhishek.employeemanagementsystem.Models.Employee;
-import com.abhishek.employeemanagementsystem.Models.TeamLeader;
-import com.abhishek.employeemanagementsystem.Models.Teams;
+import com.abhishek.employeemanagementsystem.Models.*;
 import com.abhishek.employeemanagementsystem.Repositories.TeamRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,6 +16,10 @@ public class TeamServiceImpl implements TeamService {
     private TeamLeaderServiceImpl teamLeaderService;
     @Autowired
     private EmployeeServiceImpl employeeService;
+    @Autowired
+    private AdminServiceImpl adminService;
+    @Autowired
+    private DepartmentServiceImpl departmentService;
     private TeamRepository teamRepository;
     public TeamServiceImpl(TeamRepository teamRepository) {
         this.teamRepository = teamRepository;
@@ -121,7 +122,18 @@ public class TeamServiceImpl implements TeamService {
 
     @Override
     public Teams assignAdminToTeam(Long teamId, Long adminId) {
-        return null;
+        // fetch the team by id and team leader by id;
+        Teams team = getTeamById(teamId);
+        // Check if the admin is already assigned to the team
+        List<Admin> admins = team.getAdmins();
+        for (int j=0; j<admins.size(); j++){
+            if (admins.get(j).getId().equals(adminId)){
+                throw new AdminAlreadyInTeamException("Admin Already Assigned to the current team");
+            }
+        }
+        Admin admin = adminService.getAdminById(adminId);
+        team.getAdmins().add(admin);
+        return teamRepository.save(team);
     }
 
     @Override
@@ -144,5 +156,27 @@ public class TeamServiceImpl implements TeamService {
         }
         team.setAdmins(admins);
         teamRepository.save(team);
+    }
+
+    @Override
+    public Teams assignDepartmentToTeam(Long teamId, Long departmentId) {
+        // fetch team by team id and department by department id
+        Teams team = getTeamById(teamId);
+        Department department = departmentService.getDepartmentById(departmentId);
+        // Check if department has already been assigned to team (any department)
+        if (team.getDepartment() != null){
+            throw new TeamAlreadyAssignedToDepartment("Department Already Assigned to the current team");
+        }
+        team.setDepartment(department);
+        return teamRepository.save(team);
+    }
+
+    @Override
+    public Teams updateTeamDepartment(Long teamId, Long departmentId) {
+        // fetch team by team id and department by department id
+        Teams team = getTeamById(teamId);
+        Department department = departmentService.getDepartmentById(departmentId);
+        team.setDepartment(department);
+        return teamRepository.save(team);
     }
 }

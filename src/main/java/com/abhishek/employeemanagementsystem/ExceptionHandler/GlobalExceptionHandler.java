@@ -225,6 +225,15 @@ public class GlobalExceptionHandler {
         return responseEntity;
     }
 
+    @ExceptionHandler(TeamAlreadyAssignedToDepartment.class)
+    public ResponseEntity<ExceptionDto> handleTeamAlreadyAssignedToDepartment(TeamAlreadyAssignedToDepartment e) {
+        ExceptionDto exceptionDto = new ExceptionDto();
+        exceptionDto.setMessage("Team has already been assigned to a department. Please update the department in case you want to make any changes");
+        exceptionDto.setResolution("TeamAlreadyAssignedToDepartmentException");
+        ResponseEntity<ExceptionDto> responseEntity = new ResponseEntity<>(exceptionDto, HttpStatus.BAD_REQUEST);
+        return responseEntity;
+    }
+
     //    @ExceptionHandler(RuntimeException.class)
 //    public ResponseEntity<ExceptionDto> handleRuntimeException(RuntimeException e) {
 //        ExceptionDto exceptionDto = new ExceptionDto();
