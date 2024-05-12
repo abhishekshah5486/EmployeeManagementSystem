@@ -315,6 +315,33 @@ public class GlobalExceptionHandler {
         return responseEntity;
     }
 
+    @ExceptionHandler(InvalidMarketManagerIDException.class)
+    public ResponseEntity<ExceptionDto> handleInvalidMarketManagerIDException(InvalidMarketManagerIDException e) {
+        ExceptionDto exceptionDto = new ExceptionDto();
+        exceptionDto.setMessage("Invalid Market Manager ID : " + e.getId() + " passed.");
+        exceptionDto.setResolution("InvalidMarketManagerIDException");
+        ResponseEntity<ExceptionDto> responseEntity = new ResponseEntity<>(exceptionDto, HttpStatus.BAD_REQUEST);
+        return responseEntity;
+    }
+
+    @ExceptionHandler(MarketManagerIDNotFoundException.class)
+    public ResponseEntity<ExceptionDto> handleMarketManagerIDNotFoundException(MarketManagerIDNotFoundException e) {
+        ExceptionDto exceptionDto = new ExceptionDto();
+        exceptionDto.setMessage("Market Manager ID " + e.getId() + " not found.");
+        exceptionDto.setResolution("MarketManagerIDNotFoundException");
+        ResponseEntity<ExceptionDto> responseEntity = new ResponseEntity<>(exceptionDto, HttpStatus.BAD_REQUEST);
+        return responseEntity;
+    }
+
+    @ExceptionHandler(NoMarketManagersFoundException.class)
+    public ResponseEntity<ExceptionDto> handleNoMarketManagersFoundException(NoMarketManagersFoundException e) {
+        ExceptionDto exceptionDto = new ExceptionDto();
+        exceptionDto.setMessage("No Market Manager Found");
+        exceptionDto.setResolution("NoMarketManagersFoundException");
+        ResponseEntity<ExceptionDto> responseEntity = new ResponseEntity<>(exceptionDto, HttpStatus.BAD_REQUEST);
+        return responseEntity;
+    }
+
     @ExceptionHandler(RuntimeException.class)
     public ResponseEntity<ExceptionDto> handleRuntimeException(RuntimeException e) {
         ExceptionDto exceptionDto = new ExceptionDto();

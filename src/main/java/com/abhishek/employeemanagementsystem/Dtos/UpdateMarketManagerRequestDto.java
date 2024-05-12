@@ -9,9 +9,8 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class MarketManagerResponseDto {
-    private int id;
+public class UpdateMarketManagerRequestDto {
     private String name;
     private String email;
-    private String message;
+    private String username;
 }
