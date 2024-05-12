@@ -16,6 +16,7 @@ public class EmployeeResponseDto {
     private String name;
     private String email;
     private String departmentName;
+    private String teamName;
     private String roleName;
     private LocalDate dateOfJoining;
     private String message;
@@ -23,8 +24,8 @@ public class EmployeeResponseDto {
     public EmployeeResponseDto(Employee employee) {
         this.name = employee.getName();
         this.email = employee.getEmail();
-        this.departmentName = employee.getDepartment().getName();
-        this.roleName = employee.getRole().getName();
+//        this.departmentName = employee.getDepartment().getName();
+//        this.roleName = employee.getRole().getName();
         this.dateOfJoining = employee.getDateOfJoining();
     }
 }

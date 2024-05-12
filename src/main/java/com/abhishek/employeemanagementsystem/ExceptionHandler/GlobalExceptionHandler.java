@@ -180,6 +180,51 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(exceptionDto, HttpStatus.BAD_REQUEST);
     }
 
+    @ExceptionHandler(EmployeeAlreadyInTeamException.class)
+    public ResponseEntity<ExceptionDto> handleEmployeeAlreadyInTeamException(EmployeeAlreadyInTeamException e) {
+        ExceptionDto exceptionDto = new ExceptionDto();
+        exceptionDto.setMessage("Employee Already In Team");
+        exceptionDto.setResolution("EmployeeAlreadyInTeamException");
+        ResponseEntity<ExceptionDto> responseEntity = new ResponseEntity<>(exceptionDto, HttpStatus.BAD_REQUEST);
+        return responseEntity;
+    }
+
+    @ExceptionHandler(EmployeeAlreadyInOtherTeamException.class)
+    public ResponseEntity<ExceptionDto> handleEmployeeAlreadyInOtherTeamException(EmployeeAlreadyInOtherTeamException e) {
+        ExceptionDto exceptionDto = new ExceptionDto();
+        exceptionDto.setMessage("Employee Already In Other Team");
+        exceptionDto.setResolution("EmployeeAlreadyInOtherTeamException");
+        ResponseEntity<ExceptionDto> responseEntity = new ResponseEntity<>(exceptionDto, HttpStatus.BAD_REQUEST);
+        return responseEntity;
+    }
+
+    @ExceptionHandler(AdminAlreadyInTeamException.class)
+    public ResponseEntity<ExceptionDto> handleAdminAlreadyInTeamException(AdminAlreadyInTeamException e) {
+        ExceptionDto exceptionDto = new ExceptionDto();
+        exceptionDto.setMessage("Admin Already In Team");
+        exceptionDto.setResolution("AdminAlreadyInTeamException");
+        ResponseEntity<ExceptionDto> responseEntity = new ResponseEntity<>(exceptionDto, HttpStatus.BAD_REQUEST);
+        return responseEntity;
+    }
+
+    @ExceptionHandler(AdminNotAssignedToTeamException.class)
+    public ResponseEntity<ExceptionDto> handleAdminNotAssignedToTeamException(AdminNotAssignedToTeamException e) {
+        ExceptionDto exceptionDto = new ExceptionDto();
+        exceptionDto.setMessage("Admin is not currently assigned to this team. Please ensure you have selected the correct team or verify the admin's current assignments.");
+        exceptionDto.setResolution("AdminNotAssignedToTeamException");
+        ResponseEntity<ExceptionDto> responseEntity = new ResponseEntity<>(exceptionDto, HttpStatus.BAD_REQUEST);
+        return responseEntity;
+    }
+
+    @ExceptionHandler(EmployeeNotAssignedToTeamException.class)
+    public ResponseEntity<ExceptionDto> handleEmployeeNotAssignedToTeamException(EmployeeNotAssignedToTeamException e) {
+        ExceptionDto exceptionDto = new ExceptionDto();
+        exceptionDto.setMessage("Employee is not currently assigned to this team.");
+        exceptionDto.setResolution("EmployeeNotAssignedToTeamException");
+        ResponseEntity<ExceptionDto> responseEntity = new ResponseEntity<>(exceptionDto, HttpStatus.BAD_REQUEST);
+        return responseEntity;
+    }
+
     //    @ExceptionHandler(RuntimeException.class)
 //    public ResponseEntity<ExceptionDto> handleRuntimeException(RuntimeException e) {
 //        ExceptionDto exceptionDto = new ExceptionDto();

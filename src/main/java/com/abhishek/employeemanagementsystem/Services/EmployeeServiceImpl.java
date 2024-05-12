@@ -39,16 +39,16 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public Employee createEmployee(Employee employee) {
-        Department department = employee.getDepartment();
-        if (department.getId() == null){
-            Department savedDepartment = departmentRepository.save(department);
-            employee.setDepartment(savedDepartment);
-        }
-        Role role = employee.getRole();
-        if (role.getId() == null){
-            Role savedRole = roleRepository.save(role);
-            employee.setRole(savedRole);
-        }
+//        Department department = employee.getDepartment();
+//        if (department.getId() == null){
+//            Department savedDepartment = departmentRepository.save(department);
+//            employee.setDepartment(savedDepartment);
+//        }
+//        Role role = employee.getRole();
+//        if (role.getId() == null){
+//            Role savedRole = roleRepository.save(role);
+//            employee.setRole(savedRole);
+//        }
         return employeeRepository.save(employee);
     }
 

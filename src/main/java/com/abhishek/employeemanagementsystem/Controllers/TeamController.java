@@ -2,12 +2,14 @@ package com.abhishek.employeemanagementsystem.Controllers;
 
 import com.abhishek.employeemanagementsystem.Dtos.*;
 import com.abhishek.employeemanagementsystem.Models.Admin;
+import com.abhishek.employeemanagementsystem.Models.Employee;
 import com.abhishek.employeemanagementsystem.Models.Project;
 import com.abhishek.employeemanagementsystem.Models.Teams;
 import com.abhishek.employeemanagementsystem.Services.TeamService;
 import lombok.Getter;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -46,18 +48,27 @@ public class TeamController {
         if (team.getProjectManager() != null) teamRetrieveResponseDto.setProjectManagerResponseDto(modelMapper.map(team.getProjectManager(), ProjectManagerResponseDto.class));
         if (team.getRiskManager() != null) teamRetrieveResponseDto.setRiskManagerResponseDto(modelMapper.map(team.getRiskManager(), RiskManagerResponseDto.class));
         if (team.getTechnicalManager() != null) teamRetrieveResponseDto.setTechnicalManagerResponseDto(modelMapper.map(team.getTechnicalManager(), TechnicalManagerResponseDto.class));
+        // Adding the list of Admins
         List<Admin> admins = team.getAdmins();
         List<AdminResponseDto> adminResponseDtos = new ArrayList<>();
         for (Admin admin : admins) {
             adminResponseDtos.add(modelMapper.map(admin, AdminResponseDto.class));
         }
         teamRetrieveResponseDto.setAdminResponseDtos(adminResponseDtos);
+        // Adding the list of Projects
         List<Project> projects = team.getProjects();
         List<ProjectResponseDto> projectResponseDtos = new ArrayList<>();
         for (Project project : projects) {
             projectResponseDtos.add(modelMapper.map(project, ProjectResponseDto.class));
         }
         teamRetrieveResponseDto.setProjectResponseDtos(projectResponseDtos);
+        // Adding the list of employees
+        List<Employee> employees = team.getEmployees();
+        List<EmployeeResponseDto> employeeResponseDtos = new ArrayList<>();
+        for (Employee employee : employees) {
+            employeeResponseDtos.add(modelMapper.map(employee, EmployeeResponseDto.class));
+        }
+        teamRetrieveResponseDto.setEmployeeResponseDtos(employeeResponseDtos);
         return teamRetrieveResponseDto;
     }
 
@@ -87,5 +98,31 @@ public class TeamController {
         assignTeamLeaderResponseDto.setTeamId(teamId);
         assignTeamLeaderResponseDto.setMessage("Team leader assigned successfully");
         return assignTeamLeaderResponseDto;
+    }
+
+    // Assigning / Adding an Employee to the team
+    @PostMapping("/{teamId}/employee/{employeeId}")
+    public ResponseEntity<String> assignEmployeeToTeam(@PathVariable Long teamId, @PathVariable Long employeeId) {
+        teamService.assignEmployeeToTeam(teamId, employeeId);
+        return ResponseEntity.ok("Employee assigned to team successfully.");
+    }
+
+    // Remove Employee from a team
+    @DeleteMapping("/{teamId}/employee/{employeeId}")
+    public ResponseEntity<String> deleteEmployeeFromTeam(@PathVariable Long teamId, @PathVariable Long employeeId) {
+        teamService.deleteEmployeeFromTeam(teamId, employeeId);
+        return ResponseEntity.ok("Employee removed from team successfully.");
+    }
+
+    // Assigning/ Adding Admin to the team
+    @PostMapping("/{teamId}/admin/{adminId}")
+    public ResponseEntity<String> assignAdminToTeam(@PathVariable Long teamId, @PathVariable Long adminId) {
+        return ResponseEntity.ok("Admin assigned to team successfully.");
+    }
+
+    // Removing an Admin From a Team
+    @DeleteMapping("/{teamId}/admin/{adminId}")
+    public ResponseEntity<String> deleteAdminFromTeam(@PathVariable Long teamId, @PathVariable Long adminId) {
+        return ResponseEntity.ok("Admin removed from team successfully.");
     }
 }

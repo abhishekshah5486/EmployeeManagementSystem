@@ -22,8 +22,8 @@ public class Teams {
     private String description;
     @OneToOne
     private TeamLeader teamLeader;
-    @OneToMany(mappedBy = "team")
-    List<Employee> employees;
+    @OneToMany
+    List<Employee> employees = new ArrayList<>();
     @ManyToOne
     private Department department;
     @ManyToMany

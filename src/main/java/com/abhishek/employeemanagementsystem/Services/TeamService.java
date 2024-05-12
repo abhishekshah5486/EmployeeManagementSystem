@@ -11,4 +11,8 @@ public interface TeamService {
     List<Teams> retrieveAllTeams();
     void deleteTeamById(Long id);
     Teams assignTeamLeader(Long teamId, Long teamLeaderId);
+    Teams assignEmployeeToTeam(Long teamId, Long employeeId);
+    void deleteEmployeeFromTeam(Long teamId, Long employeeId);
+    Teams assignAdminToTeam(Long teamId, Long adminId);
+    void deleteAdminFromTeam(Long teamId, Long adminId);
 }
