@@ -261,6 +261,33 @@ public class GlobalExceptionHandler {
         return responseEntity;
     }
 
+    @ExceptionHandler(InvalidRiskManagerIDException.class)
+    public ResponseEntity<ExceptionDto> handleInvalidRiskManagerIDException(InvalidRiskManagerIDException e) {
+        ExceptionDto exceptionDto = new ExceptionDto();
+        exceptionDto.setMessage("Invalid Risk Manager ID : " + e.getId() + " passed.");
+        exceptionDto.setResolution("InvalidRiskManagerIDException");
+        ResponseEntity<ExceptionDto> responseEntity = new ResponseEntity<>(exceptionDto, HttpStatus.BAD_REQUEST);
+        return responseEntity;
+    }
+
+    @ExceptionHandler(RiskManagerIDNotFoundException.class)
+    public ResponseEntity<ExceptionDto> handleRiskManagerIDNotFoundException(RiskManagerIDNotFoundException e) {
+        ExceptionDto exceptionDto = new ExceptionDto();
+        exceptionDto.setMessage("Risk Manager ID " + e.getId() + " not found.");
+        exceptionDto.setResolution("RiskManagerIDNotFoundException");
+        ResponseEntity<ExceptionDto> responseEntity = new ResponseEntity<>(exceptionDto, HttpStatus.BAD_REQUEST);
+        return responseEntity;
+    }
+
+    @ExceptionHandler(NoRiskManagersFoundException.class)
+    public ResponseEntity<ExceptionDto> handleNoRiskManagersFoundException(NoRiskManagersFoundException e) {
+        ExceptionDto exceptionDto = new ExceptionDto();
+        exceptionDto.setMessage("No Risk Manager Found");
+        exceptionDto.setResolution("NoRiskManagersFoundException");
+        ResponseEntity<ExceptionDto> responseEntity = new ResponseEntity<>(exceptionDto, HttpStatus.BAD_REQUEST);
+        return responseEntity;
+    }
+
     @ExceptionHandler(RuntimeException.class)
     public ResponseEntity<ExceptionDto> handleRuntimeException(RuntimeException e) {
         ExceptionDto exceptionDto = new ExceptionDto();
