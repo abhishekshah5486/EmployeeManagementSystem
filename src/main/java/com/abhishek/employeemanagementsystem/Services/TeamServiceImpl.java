@@ -30,6 +30,8 @@ public class TeamServiceImpl implements TeamService {
     private TechnicalManagerServiceImpl technicalManagerService;
     @Autowired
     private FinanceManagerServiceImpl financeManagerService;
+    @Autowired
+    private ProjectServiceImpl projectService;
     private TeamRepository teamRepository;
     public TeamServiceImpl(TeamRepository teamRepository) {
         this.teamRepository = teamRepository;
