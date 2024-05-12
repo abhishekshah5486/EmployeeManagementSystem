@@ -29,4 +29,7 @@ public interface TeamService {
     Teams assignTechnicalManagerToTeam(Long teamId, Long technicalManagerId);
     Teams updateTechnicalManagerToTeam(Long teamId, Long technicalManagerId);
     void deleteTechnicalManagerFromTeam(Long teamId, Long technicalManagerId);
+    Teams assignRiskManagerToTeam(Long teamId, Long riskManagerId);
+    Teams updateRiskManagerToTeam(Long teamId, Long riskManagerId);
+    void deleteRiskManagerFromTeam(Long teamId, Long riskManagerId);
 }

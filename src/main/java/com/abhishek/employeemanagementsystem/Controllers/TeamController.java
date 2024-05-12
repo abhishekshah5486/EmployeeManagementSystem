@@ -225,4 +225,26 @@ public class TeamController {
         return ResponseEntity.ok("Technical Manager removed from team successfully.");
     }
 
+    // Assigning Risk Manager To Team
+    @PostMapping("/{teamId}/risk-manager/{riskManagerId}")
+    public ResponseEntity<String> assignRiskManagerToTeam(@PathVariable Long teamId, @PathVariable Long riskManagerId) {
+        teamService.assignRiskManagerToTeam(teamId, riskManagerId);
+        return ResponseEntity.ok("Risk Manager assigned to team Id " + teamId + " successfully.");
+    }
+
+    // Updating Risk Manager of a Team
+    @PutMapping("/{teamId}/risk-manager/{riskManagerId}")
+    public ResponseEntity<String> updateRiskManagerToTeam(@PathVariable Long teamId, @PathVariable Long riskManagerId) {
+        teamService.updateRiskManagerToTeam(teamId, riskManagerId);
+        return ResponseEntity.ok("Risk Manager updated successfully.");
+    }
+
+    // Removing Risk Manager From a team
+    @DeleteMapping("/{teamId}/risk-manager/{riskManagerId}")
+    public ResponseEntity<String> deleteRiskManagerFromTeam(@PathVariable Long teamId, @PathVariable Long riskManagerId) {
+        teamService.deleteRiskManagerFromTeam(teamId, riskManagerId);
+        return ResponseEntity.ok("Risk Manager removed from team successfully.");
+    }
+
+
 }

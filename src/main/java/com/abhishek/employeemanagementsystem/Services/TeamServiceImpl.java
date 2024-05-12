@@ -350,5 +350,44 @@ public class TeamServiceImpl implements TeamService {
         teamRepository.save(team);
     }
 
+    @Override
+    public Teams assignRiskManagerToTeam(Long teamId, Long riskManagerId) {
+        // Fetch team by team id and risk manager by riskManagerId
+        Teams team = getTeamById(teamId);
+        RiskManager riskManager = riskManagerService.getRiskManagerById(riskManagerId);
+        // Check if the risk manager has already been assigned to the team
+        if (team.getRiskManager() != null){
+            throw new RiskManagerAlreadyAssignedToTeamException("Risk Manager has already been assigned " +
+                    "to this team", teamId);
+        }
+        team.setRiskManager(riskManager);
+        return teamRepository.save(team);
+    }
+
+    @Override
+    public Teams updateRiskManagerToTeam(Long teamId, Long riskManagerId) {
+        // Fetch team by team id and risk manager by riskManagerId
+        Teams team = getTeamById(teamId);
+        RiskManager riskManager = riskManagerService.getRiskManagerById(riskManagerId);
+        // Check if the risk manager has been assigned to the team or not
+        if (team.getRiskManager() == null){
+            throw new NoRiskManagerAssignedToTeamException("Unable to update the risk manager !" +
+                    "No Risk Manager has been assigned to this team." +
+                    "Please assign a risk manager to the team.", teamId);
+        }
+        team.setRiskManager(riskManager);
+        return teamRepository.save(team);
+    }
+
+    @Override
+    public void deleteRiskManagerFromTeam(Long teamId, Long riskManagerId) {
+        // Fetch team by team id and risk manager by riskManagerId
+        Teams team = getTeamById(teamId);
+        if (team.getRiskManager() == null){
+            throw new NoRiskManagerAssignedToTeamException("No Risk Manager with this id has been assigned to team", teamId);
+        }
+        team.setRiskManager(null);
+        teamRepository.save(team);
+    }
 
 }

@@ -441,6 +441,24 @@ public class GlobalExceptionHandler {
         return responseEntity;
     }
 
+    @ExceptionHandler(RiskManagerAlreadyAssignedToTeamException.class)
+    public ResponseEntity<ExceptionDto> handleRiskManagerAssignedToTeamException(RiskManagerAlreadyAssignedToTeamException e) {
+        ExceptionDto exceptionDto = new ExceptionDto();
+        exceptionDto.setMessage("RiskManager Already Assigned to Team ID " + e.getId());
+        exceptionDto.setResolution("RiskManagerAlreadyAssignedToTeamException");
+        ResponseEntity<ExceptionDto> responseEntity = new ResponseEntity<>(exceptionDto, HttpStatus.BAD_REQUEST);
+        return responseEntity;
+    }
+
+    @ExceptionHandler(NoRiskManagerAssignedToTeamException.class)
+    public ResponseEntity<ExceptionDto> handleNoRiskManagerAssignedToTeamException(NoRiskManagerAssignedToTeamException e) {
+        ExceptionDto exceptionDto = new ExceptionDto();
+        exceptionDto.setMessage("No RiskManager Assigned to Team ID " + e.getId());
+        exceptionDto.setResolution("NoRiskManagerAssignedToTeamException");
+        ResponseEntity<ExceptionDto> responseEntity = new ResponseEntity<>(exceptionDto, HttpStatus.BAD_REQUEST);
+        return responseEntity;
+    }
+
     @ExceptionHandler(RuntimeException.class)
     public ResponseEntity<ExceptionDto> handleRuntimeException(RuntimeException e) {
         ExceptionDto exceptionDto = new ExceptionDto();
