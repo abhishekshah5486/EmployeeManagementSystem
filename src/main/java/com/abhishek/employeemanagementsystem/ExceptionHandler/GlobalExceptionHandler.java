@@ -342,6 +342,33 @@ public class GlobalExceptionHandler {
         return responseEntity;
     }
 
+    @ExceptionHandler(InvalidTechnicalManagerIDException.class)
+    public ResponseEntity<ExceptionDto> handleInvalidTechnicalManagerIDException(InvalidTechnicalManagerIDException e) {
+        ExceptionDto exceptionDto = new ExceptionDto();
+        exceptionDto.setMessage("Invalid Technical Manager ID : " + e.getId() + " passed.");
+        exceptionDto.setResolution("InvalidTechnicalManagerIDException");
+        ResponseEntity<ExceptionDto> responseEntity = new ResponseEntity<>(exceptionDto, HttpStatus.BAD_REQUEST);
+        return responseEntity;
+    }
+
+    @ExceptionHandler(TechnicalManagerIDNotFoundException.class)
+    public ResponseEntity<ExceptionDto> handleTechnicalManagerIDNotFoundException(TechnicalManagerIDNotFoundException e) {
+        ExceptionDto exceptionDto = new ExceptionDto();
+        exceptionDto.setMessage("Technical Manager ID " + e.getId() + " not found.");
+        exceptionDto.setResolution("TechnicalManagerIDNotFoundException");
+        ResponseEntity<ExceptionDto> responseEntity = new ResponseEntity<>(exceptionDto, HttpStatus.BAD_REQUEST);
+        return responseEntity;
+    }
+
+    @ExceptionHandler(NoTechnicalManagersFoundException.class)
+    public ResponseEntity<ExceptionDto> handleNoTechnicalManagersFoundException(NoTechnicalManagersFoundException e) {
+        ExceptionDto exceptionDto = new ExceptionDto();
+        exceptionDto.setMessage("No Technical Manager Found");
+        exceptionDto.setResolution("NoTechnicalManagersFoundException");
+        ResponseEntity<ExceptionDto> responseEntity = new ResponseEntity<>(exceptionDto, HttpStatus.BAD_REQUEST);
+        return responseEntity;
+    }
+
     @ExceptionHandler(RuntimeException.class)
     public ResponseEntity<ExceptionDto> handleRuntimeException(RuntimeException e) {
         ExceptionDto exceptionDto = new ExceptionDto();

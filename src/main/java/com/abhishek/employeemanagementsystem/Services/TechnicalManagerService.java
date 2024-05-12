@@ -1,5 +1,7 @@
 package com.abhishek.employeemanagementsystem.Services;
 
+import com.abhishek.employeemanagementsystem.Dtos.CreateTechnicalManagerRequestDto;
+import com.abhishek.employeemanagementsystem.Dtos.UpdateTechnicalManagerRequestDto;
 import com.abhishek.employeemanagementsystem.Models.TechnicalManager;
 
 import java.util.List;
