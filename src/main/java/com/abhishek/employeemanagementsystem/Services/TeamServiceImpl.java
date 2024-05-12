@@ -20,6 +20,16 @@ public class TeamServiceImpl implements TeamService {
     private AdminServiceImpl adminService;
     @Autowired
     private DepartmentServiceImpl departmentService;
+    @Autowired
+    private ProjectManagerServiceImpl projectManagerService;
+    @Autowired
+    private RiskManagerServiceImpl riskManagerService;
+    @Autowired
+    private MarketManagerServiceImpl marketManagerService;
+    @Autowired
+    private TechnicalManagerServiceImpl technicalManagerService;
+    @Autowired
+    private FinanceManagerServiceImpl financeManagerService;
     private TeamRepository teamRepository;
     public TeamServiceImpl(TeamRepository teamRepository) {
         this.teamRepository = teamRepository;
@@ -178,5 +188,45 @@ public class TeamServiceImpl implements TeamService {
         Department department = departmentService.getDepartmentById(departmentId);
         team.setDepartment(department);
         return teamRepository.save(team);
+    }
+
+    @Override
+    public Teams aasignProjectManagerToTeam(Long teamId, Long projectManagerId) {
+        // Fetch team by team id and project manager by projectManagerId
+        Teams team = getTeamById(teamId);
+        ProjectManager projectManager = projectManagerService.getProjectManagerById(projectManagerId);
+        // Check if the project manager has already been assigned to the team
+        if (team.getProjectManager() != null){
+            throw new ProjectManagerAlreadyAssignedToTeamException("Project Manager has already been assigned " +
+                    "to this team", teamId);
+        }
+        team.setProjectManager(projectManager);
+        return teamRepository.save(team);
+    }
+
+    @Override
+    public Teams updateProjectManagerToTeam(Long teamId, Long projectManagerId) {
+        // Fetch team by team id and project manager by projectManagerId
+        Teams team = getTeamById(teamId);
+        ProjectManager projectManager = projectManagerService.getProjectManagerById(projectManagerId);
+        // Check if the project manager has been assigned to the team or not
+        if (team.getProjectManager() == null){
+            throw new ProjectManagerNotAssignedToTeamException("Unable to update the project manager !" +
+                    "No Project Manager has been assigned to this team." +
+                    "Please assign a project manager to the team.", teamId);
+        }
+        team.setProjectManager(projectManager);
+        return teamRepository.save(team);
+    }
+
+    @Override
+    public void deleteProjectManagerFromTeam(Long teamId, Long projectManagerId) {
+        // Fetch team by team id and project manager by projectManagerId
+        Teams team = getTeamById(teamId);
+        if (team.getProjectManager() == null){
+            throw new ProjectManagerNotAssignedToTeamException("No Project Manager with this id has been assigned to team", teamId);
+        }
+        team.setProjectManager(null);
+        teamRepository.save(team);
     }
 }

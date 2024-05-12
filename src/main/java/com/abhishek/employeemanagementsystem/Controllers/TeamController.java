@@ -6,7 +6,6 @@ import com.abhishek.employeemanagementsystem.Models.Employee;
 import com.abhishek.employeemanagementsystem.Models.Project;
 import com.abhishek.employeemanagementsystem.Models.Teams;
 import com.abhishek.employeemanagementsystem.Services.TeamService;
-import lombok.Getter;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -140,5 +139,23 @@ public class TeamController {
     public ResponseEntity<String> updateTeamDepartment(@PathVariable Long teamId, @PathVariable Long departmentId) {
         teamService.updateTeamDepartment(teamId, departmentId);
         return ResponseEntity.ok("Department updated successfully.");
+    }
+
+    // Assigning Project Manager To Team
+    @PostMapping("/{teamId}/project-manager/{projectManagerId}")
+    public ResponseEntity<String> assignProjectManagerToTeam(@PathVariable Long teamId, @PathVariable Long projectManagerId) {
+        return ResponseEntity.ok("Project Manager assigned to team Id " + teamId + " successfully.");
+    }
+
+    // Updating Project Manager of a Team
+    @PutMapping("/{teamId}/project-manager/{projectManagerId}")
+    public ResponseEntity<String> updateProjectManagerToTeam(@PathVariable Long teamId, @PathVariable Long projectManagerId) {
+        return ResponseEntity.ok("Project Manager updated successfully.");
+    }
+
+    // Removing Project Manager From a team
+    @DeleteMapping("/{teamId}/project-manager/{projectManagerId}")
+    public ResponseEntity<String> deleteProjectManagerFromTeam(@PathVariable Long teamId, @PathVariable Long projectManagerId) {
+        return ResponseEntity.ok("Project Manager removed from team successfully.");
     }
 }
