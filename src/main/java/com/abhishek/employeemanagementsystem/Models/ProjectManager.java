@@ -21,14 +21,16 @@ public class ProjectManager {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
+    private String username;
+    private String password;
     private String email;
+    private LocalDate dateOfJoining;
     @ManyToOne
     private Department department;
     @OneToMany
     private List<Teams> teamsList = new ArrayList<>();
     @OneToMany
     private List<Project> projectList = new ArrayList<>();
-    private LocalDate dateOfJoining;
     private UserType userType = UserType.PROJECT_MANAGER;
     private LoginStatus loginStatus = LoginStatus.LOGGEDOUT;
     private EmploymentStatus employmentStatus = EmploymentStatus.ACTIVE;

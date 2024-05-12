@@ -5,13 +5,16 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDate;
+
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class ProjectManagerResponseDto {
-    private int id;
+public class CreateProjectManagerRequestDto {
     private String name;
+    private String username;
+    private String password;
     private String email;
-    private String message;
+    private LocalDate dateOfJoining;
 }

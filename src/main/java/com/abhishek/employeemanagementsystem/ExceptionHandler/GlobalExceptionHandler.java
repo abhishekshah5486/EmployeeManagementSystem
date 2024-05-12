@@ -234,23 +234,49 @@ public class GlobalExceptionHandler {
         return responseEntity;
     }
 
-    //    @ExceptionHandler(RuntimeException.class)
-//    public ResponseEntity<ExceptionDto> handleRuntimeException(RuntimeException e) {
-//        ExceptionDto exceptionDto = new ExceptionDto();
-//        exceptionDto.setMessage("Something went wrong");
-//        exceptionDto.setResolution("RuntimeException");
-//        ResponseEntity<ExceptionDto> responseEntity = new ResponseEntity<>(exceptionDto, HttpStatus.INTERNAL_SERVER_ERROR);
-//        return responseEntity;
-//    }
+    @ExceptionHandler(InvalidProjectManagerIDException.class)
+    public ResponseEntity<ExceptionDto> handleInvalidProjectManagerIDException(InvalidProjectManagerIDException e) {
+        ExceptionDto exceptionDto = new ExceptionDto();
+        exceptionDto.setMessage("Invalid Project Manager ID : " + e.getId() + " passed.");
+        exceptionDto.setResolution("InvalidProjectManagerIDException");
+        ResponseEntity<ExceptionDto> responseEntity = new ResponseEntity<>(exceptionDto, HttpStatus.BAD_REQUEST);
+        return responseEntity;
+    }
 
+    @ExceptionHandler(ProjectManagerIDNotFoundException.class)
+    public ResponseEntity<ExceptionDto> handleProjectManagerIDNotFoundException(ProjectManagerIDNotFoundException e) {
+        ExceptionDto exceptionDto = new ExceptionDto();
+        exceptionDto.setMessage("Project Manager ID " + e.getId() + " not found.");
+        exceptionDto.setResolution("ProjectManagerIDNotFoundException");
+        ResponseEntity<ExceptionDto> responseEntity = new ResponseEntity<>(exceptionDto, HttpStatus.BAD_REQUEST);
+        return responseEntity;
+    }
 
-//    @ExceptionHandler(Exception.class)
-//    public ResponseEntity<ExceptionDto> handleException(Exception e) {
-//        ExceptionDto exceptionDto = new ExceptionDto();
-//        exceptionDto.setMessage("Something went wrong");
-//        exceptionDto.setResolution("GeneralException");
-//        ResponseEntity<ExceptionDto> responseEntity = new ResponseEntity<>(exceptionDto, HttpStatus.INTERNAL_SERVER_ERROR);
-//        return responseEntity;
-//    }
+    @ExceptionHandler(NoProjectManagersFoundException.class)
+    public ResponseEntity<ExceptionDto> handleNoProjectManagersFoundException(NoProjectManagersFoundException e) {
+        ExceptionDto exceptionDto = new ExceptionDto();
+        exceptionDto.setMessage("No Project Managers Found");
+        exceptionDto.setResolution("NoProjectManagersFoundException");
+        ResponseEntity<ExceptionDto> responseEntity = new ResponseEntity<>(exceptionDto, HttpStatus.BAD_REQUEST);
+        return responseEntity;
+    }
+
+    @ExceptionHandler(RuntimeException.class)
+    public ResponseEntity<ExceptionDto> handleRuntimeException(RuntimeException e) {
+        ExceptionDto exceptionDto = new ExceptionDto();
+        exceptionDto.setMessage("Something went wrong");
+        exceptionDto.setResolution("RuntimeException");
+        ResponseEntity<ExceptionDto> responseEntity = new ResponseEntity<>(exceptionDto, HttpStatus.INTERNAL_SERVER_ERROR);
+        return responseEntity;
+    }
+
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<ExceptionDto> handleException(Exception e) {
+        ExceptionDto exceptionDto = new ExceptionDto();
+        exceptionDto.setMessage("Something went wrong");
+        exceptionDto.setResolution("GeneralException");
+        ResponseEntity<ExceptionDto> responseEntity = new ResponseEntity<>(exceptionDto, HttpStatus.INTERNAL_SERVER_ERROR);
+        return responseEntity;
+    }
 
 }
