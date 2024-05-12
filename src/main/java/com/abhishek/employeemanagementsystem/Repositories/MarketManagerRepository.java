@@ -1,6 +1,6 @@
 package com.abhishek.employeemanagementsystem.Repositories;
 
-import com.abhishek.employeemanagementsystem.Models.ProjectManager;
+import com.abhishek.employeemanagementsystem.Models.MarketManager;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -8,15 +8,15 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface ProjectManagerRepository extends JpaRepository<ProjectManager, Long> {
+public interface MarketManagerRepository extends JpaRepository<MarketManager, Long> {
     @Override
-    List<ProjectManager> findAll();
+    MarketManager save(MarketManager marketManager);
 
     @Override
-    Optional<ProjectManager> findById(Long id);
+    Optional<MarketManager> findById(Long id);
 
     @Override
-    ProjectManager save(ProjectManager projectManager);
+    List<MarketManager> findAll();
 
     @Override
     void deleteById(Long id);

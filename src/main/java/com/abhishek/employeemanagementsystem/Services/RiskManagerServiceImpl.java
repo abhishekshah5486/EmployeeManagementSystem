@@ -7,10 +7,12 @@ import com.abhishek.employeemanagementsystem.Exceptions.NoRiskManagersFoundExcep
 import com.abhishek.employeemanagementsystem.Exceptions.RiskManagerIDNotFoundException;
 import com.abhishek.employeemanagementsystem.Models.RiskManager;
 import com.abhishek.employeemanagementsystem.Repositories.RiskManagerRepository;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
+@Service
 public class RiskManagerServiceImpl implements RiskManagerService {
     private RiskManagerRepository riskManagerRepository;
 

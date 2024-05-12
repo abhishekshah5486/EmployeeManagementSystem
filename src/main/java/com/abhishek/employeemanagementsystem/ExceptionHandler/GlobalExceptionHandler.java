@@ -288,6 +288,33 @@ public class GlobalExceptionHandler {
         return responseEntity;
     }
 
+    @ExceptionHandler(InvalidFinanceManagerIDException.class)
+    public ResponseEntity<ExceptionDto> handleInvalidFinanceManagerIDException(InvalidFinanceManagerIDException e) {
+        ExceptionDto exceptionDto = new ExceptionDto();
+        exceptionDto.setMessage("Invalid Finance Manager ID : " + e.getId() + " passed.");
+        exceptionDto.setResolution("InvalidFinanceManagerIDException");
+        ResponseEntity<ExceptionDto> responseEntity = new ResponseEntity<>(exceptionDto, HttpStatus.BAD_REQUEST);
+        return responseEntity;
+    }
+
+    @ExceptionHandler(FinanceManagerIDNotFoundException.class)
+    public ResponseEntity<ExceptionDto> handleFinanceManagerIDNotFoundException(FinanceManagerIDNotFoundException e) {
+        ExceptionDto exceptionDto = new ExceptionDto();
+        exceptionDto.setMessage("Finance Manager ID " + e.getId() + " not found.");
+        exceptionDto.setResolution("FinanceManagerIDNotFoundException");
+        ResponseEntity<ExceptionDto> responseEntity = new ResponseEntity<>(exceptionDto, HttpStatus.BAD_REQUEST);
+        return responseEntity;
+    }
+
+    @ExceptionHandler(NoFinanceManagersFoundException.class)
+    public ResponseEntity<ExceptionDto> handleNoFinanceManagersFoundException(NoFinanceManagersFoundException e) {
+        ExceptionDto exceptionDto = new ExceptionDto();
+        exceptionDto.setMessage("No Finance Manager Found");
+        exceptionDto.setResolution("NoFinanceManagersFoundException");
+        ResponseEntity<ExceptionDto> responseEntity = new ResponseEntity<>(exceptionDto, HttpStatus.BAD_REQUEST);
+        return responseEntity;
+    }
+
     @ExceptionHandler(RuntimeException.class)
     public ResponseEntity<ExceptionDto> handleRuntimeException(RuntimeException e) {
         ExceptionDto exceptionDto = new ExceptionDto();

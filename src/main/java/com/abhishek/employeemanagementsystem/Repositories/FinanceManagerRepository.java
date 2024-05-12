@@ -1,6 +1,6 @@
 package com.abhishek.employeemanagementsystem.Repositories;
 
-import com.abhishek.employeemanagementsystem.Models.ProjectManager;
+import com.abhishek.employeemanagementsystem.Models.FinanceManager;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -8,15 +8,15 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface ProjectManagerRepository extends JpaRepository<ProjectManager, Long> {
+public interface FinanceManagerRepository extends JpaRepository<FinanceManager, Long> {
     @Override
-    List<ProjectManager> findAll();
+    FinanceManager save(FinanceManager financeManager);
 
     @Override
-    Optional<ProjectManager> findById(Long id);
+    List<FinanceManager> findAll();
 
     @Override
-    ProjectManager save(ProjectManager projectManager);
+    Optional<FinanceManager> findById(Long id);
 
     @Override
     void deleteById(Long id);
