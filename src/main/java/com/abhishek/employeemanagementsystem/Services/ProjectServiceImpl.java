@@ -3,10 +3,16 @@ package com.abhishek.employeemanagementsystem.Services;
 import com.abhishek.employeemanagementsystem.Dtos.CreateProjectRequestDto;
 import com.abhishek.employeemanagementsystem.Dtos.UpdateProjectRequestDto;
 import com.abhishek.employeemanagementsystem.Exceptions.InvalidProjectIDFoundException;
+import com.abhishek.employeemanagementsystem.Exceptions.InvalidProjectStatusFoundException;
+import com.abhishek.employeemanagementsystem.Exceptions.NoEmployeesAssignedToProjectIDException;
 import com.abhishek.employeemanagementsystem.Exceptions.NoProjectsFoundException;
+import com.abhishek.employeemanagementsystem.Models.Employee;
 import com.abhishek.employeemanagementsystem.Models.Project;
+import com.abhishek.employeemanagementsystem.Models.ProjectStatus;
 import com.abhishek.employeemanagementsystem.Repositories.ProjectRepository;
+import org.apache.commons.lang3.EnumUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.GetMapping;
 
@@ -19,7 +25,8 @@ import java.util.Optional;
 public class ProjectServiceImpl implements ProjectService {
     @Autowired
     private ProjectSearchService projectSearchService;
-
+    @Autowired
+    private EmployeeService employeeService;
     private ProjectRepository projectRepository;
     public ProjectServiceImpl(ProjectRepository projectRepository) {
         this.projectRepository = projectRepository;
@@ -134,6 +141,65 @@ public class ProjectServiceImpl implements ProjectService {
             projects.add(optionalProject.get());
         }
         return projects;
+    }
+
+    @Override
+    public Project updateProjectStatus(Long id, String newStatus) {
+        // Fetch project by project id
+        Optional<Project> project = projectRepository.findById(id);
+        if (project.isEmpty()) {
+            throw new InvalidProjectIDFoundException("Invalid Project ID", id);
+        }
+        // Check if the project status is valid
+        if (!EnumUtils.isValidEnum(ProjectStatus.class, newStatus)) {
+            throw new InvalidProjectStatusFoundException("Invalid Project Status");
+        }
+        project.get().setProjectStatus(ProjectStatus.valueOf(newStatus));
+        return projectRepository.save(project.get());
+    }
+
+    @Override
+    public Project assignEmployeeToProject(Long projectId, Long employeeId) {
+        // fetch project by project id
+        Optional<Project> project = projectRepository.findById(projectId);
+        if (project.isEmpty()) {
+            throw new InvalidProjectIDFoundException("Invalid Project ID", projectId);
+        }
+        List<Employee> employees = project.get().getEmployees();
+        Employee employee = employeeService.getEmployeeById(employeeId);
+        employees.add(employee);
+        project.get().setEmployees(employees);
+        return projectRepository.save(project.get());
+    }
+
+    @Override
+    public Project removeEmployeeFromProject(Long projectId, Long employeeId) {
+        // fetch project by project id
+        Optional<Project> project = projectRepository.findById(projectId);
+        if (project.isEmpty()) {
+            throw new InvalidProjectIDFoundException("Invalid Project ID", projectId);
+        }
+        List<Employee> employees = project.get().getEmployees();
+        for (int i = 0; i < employees.size(); i++) {
+            if (employees.get(i).getId().equals(employeeId)) {
+                employees.remove(i);
+            }
+        }
+        project.get().setEmployees(employees);
+        return projectRepository.save(project.get());
+    }
+
+    @Override
+    public List<Employee> getAllEmployeesAssignedToProject(Long projectId) {
+        Optional<Project> project = projectRepository.findById(projectId);
+        if (project.isEmpty()) {
+            throw new InvalidProjectIDFoundException("Invalid Project ID", projectId);
+        }
+        List<Employee> employeeList = project.get().getEmployees();
+        if (employeeList.isEmpty()) {
+            throw new NoEmployeesAssignedToProjectIDException("No Employees Assigned To Project ID", projectId);
+        }
+        return employeeList;
     }
 
 }

@@ -1,8 +1,10 @@
 package com.abhishek.employeemanagementsystem.Controllers;
 
 import com.abhishek.employeemanagementsystem.Dtos.CreateProjectRequestDto;
+import com.abhishek.employeemanagementsystem.Dtos.EmployeeResponseDto;
 import com.abhishek.employeemanagementsystem.Dtos.ProjectResponseDto;
 import com.abhishek.employeemanagementsystem.Dtos.UpdateProjectRequestDto;
+import com.abhishek.employeemanagementsystem.Models.Employee;
 import com.abhishek.employeemanagementsystem.Models.Project;
 import com.abhishek.employeemanagementsystem.Models.ProjectStatus;
 import com.abhishek.employeemanagementsystem.Services.ProjectService;
@@ -121,7 +123,36 @@ public class ProjectController {
     // Change the project status
     @PutMapping("/{projectId}")
     public ResponseEntity<String> updateProjectStatus(@PathVariable Long projectId,
-                                                      @RequestParam ProjectStatus newStatus) {
-        return null;
+                                                      @RequestParam String newStatus) {
+        projectService.updateProjectStatus(projectId, newStatus);
+        return ResponseEntity.ok("Project status updated successfully");
     }
+
+    // Assign / Adding an employee to a project
+    @PostMapping("/{projectId}/employee/{employeeId}")
+    public ResponseEntity<String> assignEmployeeToProject(@PathVariable Long projectId, @PathVariable Long employeeId) {
+        projectService.assignEmployeeToProject(projectId, employeeId);
+        return ResponseEntity.ok("Employee assigned to project successfully");
+    }
+
+    // Removing an employee from a project
+    @DeleteMapping("/{projectId}/employee/{employeeId}")
+    public ResponseEntity<String> deleteEmployeeFromProject(@PathVariable Long projectId, @PathVariable Long employeeId) {
+        projectService.removeEmployeeFromProject(projectId, employeeId);
+        return ResponseEntity.ok("Employee removed from project successfully");
+    }
+
+    // Retrieve all employees assigned to the project
+    @GetMapping("/{projectId}/")
+    public List<EmployeeResponseDto> getAllEmployeesAssignedToProject(@PathVariable Long projectId) {
+        List<Employee> employees = projectService.getAllEmployeesAssignedToProject(projectId);
+        List<EmployeeResponseDto> employeeResponseDtos = new ArrayList<>();
+        for (Employee employee : employees) {
+            EmployeeResponseDto employeeResponseDto = modelMapper.map(employee, EmployeeResponseDto.class);
+            employeeResponseDtos.add(employeeResponseDto);
+        }
+        return employeeResponseDtos;
+    }
+
+    // Assign /
 }

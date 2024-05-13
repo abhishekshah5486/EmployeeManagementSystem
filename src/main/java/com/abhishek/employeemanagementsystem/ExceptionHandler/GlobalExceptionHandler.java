@@ -486,6 +486,24 @@ public class GlobalExceptionHandler {
         return responseEntity;
     }
 
+    @ExceptionHandler(InvalidProjectStatusFoundException.class)
+    public ResponseEntity<ExceptionDto> handleInvalidProjectStatusFoundException(InvalidProjectStatusFoundException e) {
+        ExceptionDto exceptionDto = new ExceptionDto();
+        exceptionDto.setMessage("Invalid Project Status Passed !");
+        exceptionDto.setResolution("InvalidProjectStatusFoundException");
+        ResponseEntity<ExceptionDto> responseEntity = new ResponseEntity<>(exceptionDto, HttpStatus.BAD_REQUEST);
+        return responseEntity;
+    }
+
+    @ExceptionHandler(NoEmployeesAssignedToProjectIDException.class)
+    public ResponseEntity<ExceptionDto> handleNoEmployeesAssignedToProjectIDException(NoEmployeesAssignedToProjectIDException e) {
+        ExceptionDto exceptionDto = new ExceptionDto();
+        exceptionDto.setMessage("No Employees Assigned to Project ID " + e.getId());
+        exceptionDto.setResolution("NoEmployeesAssignedToProjectIDException");
+        ResponseEntity<ExceptionDto> responseEntity = new ResponseEntity<>(exceptionDto, HttpStatus.BAD_REQUEST);
+        return responseEntity;
+    }
+
 //    @ExceptionHandler(RuntimeException.class)
 //    public ResponseEntity<ExceptionDto> handleRuntimeException(RuntimeException e) {
 //        ExceptionDto exceptionDto = new ExceptionDto();
