@@ -6,14 +6,19 @@ import com.abhishek.employeemanagementsystem.Exceptions.InvalidProjectIDFoundExc
 import com.abhishek.employeemanagementsystem.Exceptions.NoProjectsFoundException;
 import com.abhishek.employeemanagementsystem.Models.Project;
 import com.abhishek.employeemanagementsystem.Repositories.ProjectRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 @Service
 public class ProjectServiceImpl implements ProjectService {
+    @Autowired
+    private ProjectSearchService projectSearchService;
 
     private ProjectRepository projectRepository;
     public ProjectServiceImpl(ProjectRepository projectRepository) {
@@ -27,7 +32,11 @@ public class ProjectServiceImpl implements ProjectService {
         project.setDescription(createProjectRequestDto.getDescription());
         project.setStartDate(createProjectRequestDto.getStartDate());
         project.setProjectStatus(createProjectRequestDto.getProjectStatus());
-        return projectRepository.save(project);
+
+        Project savedProject = projectRepository.save(project);
+        // Insert the title into trie
+        projectSearchService.insertIntoTrie(createProjectRequestDto.getTitle().toLowerCase(), savedProject.getId());
+        return savedProject;
     }
 
     @Override
@@ -37,10 +46,16 @@ public class ProjectServiceImpl implements ProjectService {
         if (project.isEmpty()) {
             throw new InvalidProjectIDFoundException("Invalid Project ID", id);
         }
+        // Delete the old project title from trie
+        projectSearchService.deleteFromTrie(project.get().getTitle());
+
         project.get().setTitle(updateProjectRequestDto.getTitle());
         project.get().setDescription(updateProjectRequestDto.getDescription());
         project.get().setStartDate(updateProjectRequestDto.getStartDate());
         project.get().setEndDate(updateProjectRequestDto.getEndDate());
+
+        // Insert the new project title into trie
+        projectSearchService.insertIntoTrie(updateProjectRequestDto.getTitle().toLowerCase(), project.get().getId());
         return projectRepository.save(project.get());
     }
 
@@ -51,6 +66,9 @@ public class ProjectServiceImpl implements ProjectService {
         if (project.isEmpty()) {
             throw new InvalidProjectIDFoundException("Invalid Project ID", id);
         }
+
+        // Delete the project title from trie
+        projectSearchService.deleteFromTrie(project.get().getTitle());
         projectRepository.deleteById(id);
     }
 
@@ -71,6 +89,51 @@ public class ProjectServiceImpl implements ProjectService {
            throw new NoProjectsFoundException("No Projects Found !", 1L);
        }
        return projects;
+    }
+
+    @Override
+    public List<Project> getProjectsByDateRange(LocalDate startDate, LocalDate endDate) {
+        List<Project> projects = projectRepository.findProjectsByDateRange(startDate, endDate);
+        if (projects.isEmpty()) {
+            throw new NoProjectsFoundException("No Projects Found !", 1L);
+        }
+        return projects;
+    }
+
+    @Override
+    public List<Project> getProjectsByStartDate(LocalDate startDate) {
+        List<Project> projects = projectRepository.findProjectsByStartDate(startDate);
+        if (projects.isEmpty()) {
+            throw new NoProjectsFoundException("No Projects Found !", 1L);
+        }
+        return projects;
+    }
+
+    @Override
+    public List<Project> getProjectsByEndDate(LocalDate endDate) {
+       List<Project> projects = projectRepository.findProjectsByEndDate(endDate);
+       if (projects.isEmpty()) {
+           throw new NoProjectsFoundException("No Projects Found !", 1L);
+       }
+       return projects;
+    }
+
+    @Override
+    public List<Project> getProjectsByKeyword(String keyword) {
+        keyword = keyword.toLowerCase();
+        List<Long> projectIds = projectSearchService.prefixSearchIntoTrie(keyword);
+        List<Project> projects = new ArrayList<>();
+        if (projectIds.isEmpty()) {
+            throw new NoProjectsFoundException("No Projects Found !", 1L);
+        }
+        for (Long projectId : projectIds) {
+            Optional<Project> optionalProject = projectRepository.findById(projectId);
+            if (optionalProject.isEmpty()) {
+                throw new NoProjectsFoundException("No Projects Found !", projectId);
+            }
+            projects.add(optionalProject.get());
+        }
+        return projects;
     }
 
 }

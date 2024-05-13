@@ -1,6 +1,7 @@
 package com.abhishek.employeemanagementsystem.Models;
 
 
+import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -21,6 +22,7 @@ public class Project {
     private Long id;
     private String title;
     private String description;
+    @Column(nullable = true)
     private ProjectStatus projectStatus;
     private ProjectPriorityLevel priorityLevel;
     private LocalDate startDate;

@@ -4,6 +4,7 @@ import com.abhishek.employeemanagementsystem.Dtos.CreateProjectRequestDto;
 import com.abhishek.employeemanagementsystem.Dtos.ProjectResponseDto;
 import com.abhishek.employeemanagementsystem.Dtos.UpdateProjectRequestDto;
 import com.abhishek.employeemanagementsystem.Models.Project;
+import com.abhishek.employeemanagementsystem.Models.ProjectStatus;
 import com.abhishek.employeemanagementsystem.Services.ProjectService;
 import com.abhishek.employeemanagementsystem.Services.ProjectServiceImpl;
 import org.modelmapper.ModelMapper;
@@ -11,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -66,5 +68,60 @@ public class ProjectController {
             projectResponseDtos.add(projectResponseDto);
         }
         return projectResponseDtos;
+    }
+
+    // Retrieve Projects within a date range
+    @GetMapping("/startDate/{startDate}/endDate/{endDate}")
+    public List<ProjectResponseDto> getProjectsByDateRange(@PathVariable LocalDate startDate, @PathVariable LocalDate endDate) {
+        List<Project> projects = projectService.getProjectsByDateRange(startDate, endDate);
+        List<ProjectResponseDto> projectResponseDtos = new ArrayList<>();
+        for (Project project : projects) {
+            ProjectResponseDto projectResponseDto = modelMapper.map(project, ProjectResponseDto.class);
+            projectResponseDtos.add(projectResponseDto);
+        }
+        return projectResponseDtos;
+    }
+
+    // Retrieve Projects by Start Date
+    @GetMapping("/startDate/{startDate}")
+    public List<ProjectResponseDto> getProjectsByStartDate(@PathVariable LocalDate startDate) {
+        List<Project> projects = projectService.getProjectsByStartDate(startDate);
+        List<ProjectResponseDto> projectResponseDtos = new ArrayList<>();
+        for (Project project : projects) {
+            ProjectResponseDto projectResponseDto = modelMapper.map(project, ProjectResponseDto.class);
+            projectResponseDtos.add(projectResponseDto);
+        }
+        return projectResponseDtos;
+    }
+
+    // Retrieve Projects By End Date
+    @GetMapping("/endDate/{endDate}")
+    public List<ProjectResponseDto> getProjectsByEndDate(@PathVariable LocalDate endDate) {
+        List<Project> projects = projectService.getProjectsByEndDate(endDate);
+        List<ProjectResponseDto> projectResponseDtos = new ArrayList<>();
+        for (Project project : projects) {
+            ProjectResponseDto projectResponseDto = modelMapper.map(project, ProjectResponseDto.class);
+            projectResponseDtos.add(projectResponseDto);
+        }
+        return projectResponseDtos;
+    }
+
+    // Search Projects By Keywords
+    @GetMapping("/search/{keyword}")
+    public List<ProjectResponseDto> getProjectsByKeyword(@PathVariable String keyword) {
+        List<Project> projects = projectService.getProjectsByKeyword(keyword);
+        List<ProjectResponseDto> projectResponseDtos = new ArrayList<>();
+        for (Project project : projects) {
+            ProjectResponseDto projectResponseDto = modelMapper.map(project, ProjectResponseDto.class);
+            projectResponseDtos.add(projectResponseDto);
+        }
+        return projectResponseDtos;
+    }
+
+    // Change the project status
+    @PutMapping("/{projectId}")
+    public ResponseEntity<String> updateProjectStatus(@PathVariable Long projectId,
+                                                      @RequestParam ProjectStatus newStatus) {
+        return null;
     }
 }
