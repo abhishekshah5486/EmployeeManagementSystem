@@ -32,4 +32,6 @@ public interface TeamService {
     Teams assignRiskManagerToTeam(Long teamId, Long riskManagerId);
     Teams updateRiskManagerToTeam(Long teamId, Long riskManagerId);
     void deleteRiskManagerFromTeam(Long teamId, Long riskManagerId);
+    Teams assignProjectToTeam(Long teamId, Long projectId);
+    Teams deleteProjectFromTeam(Long teamId, Long projectId);
 }

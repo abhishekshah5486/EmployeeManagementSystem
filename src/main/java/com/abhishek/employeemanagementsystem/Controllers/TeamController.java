@@ -246,5 +246,17 @@ public class TeamController {
         return ResponseEntity.ok("Risk Manager removed from team successfully.");
     }
 
+    // Adding Project / Assigning Project To A Team
+    @PostMapping("/{teamId}/project/{projectId}")
+    public ResponseEntity<String> assignProjectToTeam(@PathVariable Long teamId, @PathVariable Long projectId) {
+        teamService.assignProjectToTeam(teamId, projectId);
+        return ResponseEntity.ok("Project assigned to team Id " + teamId + " successfully.");
+    }
 
+    // Removing Project from a team
+    @DeleteMapping("/{teamId}/project/{projectId}")
+    public ResponseEntity<String> deleteProjectFromTeam(@PathVariable Long teamId, @PathVariable Long projectId) {
+        teamService.deleteProjectFromTeam(teamId, projectId);
+        return ResponseEntity.ok("Project deleted from team Id " + teamId + " successfully.");
+    }
 }

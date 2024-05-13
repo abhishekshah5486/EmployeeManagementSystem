@@ -7,6 +7,8 @@ import com.abhishek.employeemanagementsystem.Repositories.TeamRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 
@@ -390,6 +392,29 @@ public class TeamServiceImpl implements TeamService {
         }
         team.setRiskManager(null);
         teamRepository.save(team);
+    }
+
+    @Override
+    public Teams assignProjectToTeam(Long teamId, Long projectId) {
+        // fetch the team by id and admin
+        Teams team = getTeamById(teamId);
+        Project project = projectService.getProjectById(projectId);
+        team.getProjects().add(project);
+        return teamRepository.save(team);
+    }
+
+    @Override
+    public Teams deleteProjectFromTeam(Long teamId, Long projectId) {
+        // fetch the team by id and admin
+        Teams team = getTeamById(teamId);
+        List<Project> allProjects = projectService.getAllProjects();
+        for (int i = 0; i < allProjects.size(); i++) {
+            if (allProjects.get(i).getId().equals(projectId)){
+                allProjects.remove(i);
+            }
+        }
+        team.setProjects(allProjects);
+        return teamRepository.save(team);
     }
 
 }
