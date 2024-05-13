@@ -9,6 +9,7 @@ import com.abhishek.employeemanagementsystem.Exceptions.NoProjectsFoundException
 import com.abhishek.employeemanagementsystem.Models.Employee;
 import com.abhishek.employeemanagementsystem.Models.Project;
 import com.abhishek.employeemanagementsystem.Models.ProjectStatus;
+import com.abhishek.employeemanagementsystem.Models.Teams;
 import com.abhishek.employeemanagementsystem.Repositories.ProjectRepository;
 import org.apache.commons.lang3.EnumUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +28,8 @@ public class ProjectServiceImpl implements ProjectService {
     private ProjectSearchService projectSearchService;
     @Autowired
     private EmployeeService employeeService;
+    @Autowired
+    private TeamServiceImpl teamServiceImpl;
     private ProjectRepository projectRepository;
     public ProjectServiceImpl(ProjectRepository projectRepository) {
         this.projectRepository = projectRepository;
@@ -200,6 +203,32 @@ public class ProjectServiceImpl implements ProjectService {
             throw new NoEmployeesAssignedToProjectIDException("No Employees Assigned To Project ID", projectId);
         }
         return employeeList;
+    }
+
+    @Override
+    public Project assignProjectToTeam(Long projectId, Long teamId) {
+        // fetch project by project id
+        Optional<Project> project = projectRepository.findById(projectId);
+        if (project.isEmpty()) {
+            throw new InvalidProjectIDFoundException("Invalid Project ID", projectId);
+        }
+        // fetch team by team id
+        Teams team = teamServiceImpl.getTeamById(teamId);
+        project.get().setTeam(team);
+        return projectRepository.save(project.get());
+    }
+
+    @Override
+    public Project updateProjectTeam(Long projectId, Long teamId) {
+        // fetch project by project id
+        Optional<Project> project = projectRepository.findById(projectId);
+        if (project.isEmpty()) {
+            throw new InvalidProjectIDFoundException("Invalid Project ID", projectId);
+        }
+        // fetch team by team id
+        Teams team = teamServiceImpl.getTeamById(teamId);
+        project.get().setTeam(team);
+        return projectRepository.save(project.get());
     }
 
 }
