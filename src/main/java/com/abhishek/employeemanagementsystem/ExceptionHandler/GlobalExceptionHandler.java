@@ -459,22 +459,40 @@ public class GlobalExceptionHandler {
         return responseEntity;
     }
 
-    @ExceptionHandler(RuntimeException.class)
-    public ResponseEntity<ExceptionDto> handleRuntimeException(RuntimeException e) {
+    @ExceptionHandler(NoProjectsFoundException.class)
+    public ResponseEntity<ExceptionDto> handleNoProjectsFoundException(NoProjectsFoundException e) {
         ExceptionDto exceptionDto = new ExceptionDto();
-        exceptionDto.setMessage("Something went wrong");
-        exceptionDto.setResolution("RuntimeException");
-        ResponseEntity<ExceptionDto> responseEntity = new ResponseEntity<>(exceptionDto, HttpStatus.INTERNAL_SERVER_ERROR);
+        exceptionDto.setMessage("No Projects Found For Id " + e.getId());
+        exceptionDto.setResolution("NoProjectsFoundException");
+        ResponseEntity<ExceptionDto> responseEntity = new ResponseEntity<>(exceptionDto, HttpStatus.BAD_REQUEST);
         return responseEntity;
     }
 
-    @ExceptionHandler(Exception.class)
-    public ResponseEntity<ExceptionDto> handleException(Exception e) {
+    @ExceptionHandler(InvalidProjectIDFoundException.class)
+    public ResponseEntity<ExceptionDto> handleInvalidProjectIDFoundException(InvalidProjectIDFoundException e) {
         ExceptionDto exceptionDto = new ExceptionDto();
-        exceptionDto.setMessage("Something went wrong");
-        exceptionDto.setResolution("GeneralException");
-        ResponseEntity<ExceptionDto> responseEntity = new ResponseEntity<>(exceptionDto, HttpStatus.INTERNAL_SERVER_ERROR);
+        exceptionDto.setMessage("Invalid Project ID " + e.getId());
+        exceptionDto.setResolution("InvalidProjectIDFoundException");
+        ResponseEntity<ExceptionDto> responseEntity = new ResponseEntity<>(exceptionDto, HttpStatus.BAD_REQUEST);
         return responseEntity;
     }
+
+//    @ExceptionHandler(RuntimeException.class)
+//    public ResponseEntity<ExceptionDto> handleRuntimeException(RuntimeException e) {
+//        ExceptionDto exceptionDto = new ExceptionDto();
+//        exceptionDto.setMessage("Something went wrong");
+//        exceptionDto.setResolution("RuntimeException");
+//        ResponseEntity<ExceptionDto> responseEntity = new ResponseEntity<>(exceptionDto, HttpStatus.INTERNAL_SERVER_ERROR);
+//        return responseEntity;
+//    }
+//
+//    @ExceptionHandler(Exception.class)
+//    public ResponseEntity<ExceptionDto> handleException(Exception e) {
+//        ExceptionDto exceptionDto = new ExceptionDto();
+//        exceptionDto.setMessage("Something went wrong");
+//        exceptionDto.setResolution("GeneralException");
+//        ResponseEntity<ExceptionDto> responseEntity = new ResponseEntity<>(exceptionDto, HttpStatus.INTERNAL_SERVER_ERROR);
+//        return responseEntity;
+//    }
 
 }
