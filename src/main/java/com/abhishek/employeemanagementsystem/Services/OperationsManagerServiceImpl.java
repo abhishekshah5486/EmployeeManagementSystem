@@ -2,14 +2,18 @@ package com.abhishek.employeemanagementsystem.Services;
 
 import com.abhishek.employeemanagementsystem.Dtos.CreateOperationsManagerRequestDto;
 import com.abhishek.employeemanagementsystem.Dtos.UpdateOperationsManagerRequestDto;
+import com.abhishek.employeemanagementsystem.Exceptions.NoDepartmentManagersFoundException;
 import com.abhishek.employeemanagementsystem.Exceptions.NoOperationsManagersFoundException;
 import com.abhishek.employeemanagementsystem.Exceptions.OperationsManagerIDNotFoundException;
 import com.abhishek.employeemanagementsystem.Models.Department;
+import com.abhishek.employeemanagementsystem.Models.DepartmentManager;
+import com.abhishek.employeemanagementsystem.Models.Executive;
 import com.abhishek.employeemanagementsystem.Models.OperationsManager;
 import com.abhishek.employeemanagementsystem.Repositories.OperationsManagerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -18,6 +22,8 @@ public class OperationsManagerServiceImpl implements OperationsManagerService{
 
     @Autowired
     private DepartmentServiceImpl departmentService;
+    @Autowired
+    private ExecutiveServiceImpl executiveService;
     private OperationsManagerRepository operationsManagerRepository;
     public OperationsManagerServiceImpl(OperationsManagerRepository operationsManagerRepository) {
         this.operationsManagerRepository = operationsManagerRepository;
@@ -94,5 +100,51 @@ public class OperationsManagerServiceImpl implements OperationsManagerService{
         operationsManager.get().setDepartment(department);
         return operationsManagerRepository.save(operationsManager.get());
     }
+
+    @Override
+    public OperationsManager assignOperationsManagerToExecutive(Long operationsManagerId, Long executiveId) {
+        // Fetch Operations Manager by Operations Manager id
+        Optional<OperationsManager> operationsManager = operationsManagerRepository.findById(operationsManagerId);
+        if (operationsManager.isEmpty()){
+            throw new OperationsManagerIDNotFoundException("No operations manager found with this id !", operationsManagerId);
+        }
+        // Fetch Executive by Executive id
+        Executive executive = executiveService.getExecutiveById(executiveId);
+
+        operationsManager.get().setExecutive(executive);
+
+        return operationsManagerRepository.save(operationsManager.get());
+    }
+
+    @Override
+    public OperationsManager updateOperationsManagerToExecutive(Long operationsManagerId, Long executiveId) {
+        // Fetch Operations Manager by Operations Manager id
+        Optional<OperationsManager> operationsManager = operationsManagerRepository.findById(operationsManagerId);
+        if (operationsManager.isEmpty()){
+            throw new OperationsManagerIDNotFoundException("No operations manager found with this id !", operationsManagerId);
+        }
+        // Fetch Executive by Executive id
+        Executive executive = executiveService.getExecutiveById(executiveId);
+
+        operationsManager.get().setExecutive(executive);
+
+        return operationsManagerRepository.save(operationsManager.get());
+    }
+
+    @Override
+    public List<OperationsManager> getOperationsManagersByExecutiveId(Long executiveId) {
+        List<OperationsManager> allOperationsManagers = operationsManagerRepository.findAll();
+        if (allOperationsManagers.isEmpty()){
+            throw new NoOperationsManagersFoundException("No operations managers found");
+        }
+        List<OperationsManager> returnOperationsManagers = new ArrayList<>();
+        for (OperationsManager operationsManager : allOperationsManagers){
+            if (operationsManager.getExecutive().getId().equals(executiveId)){
+                returnOperationsManagers.add(operationsManager);
+            }
+        }
+        return returnOperationsManagers;
+    }
+
 
 }

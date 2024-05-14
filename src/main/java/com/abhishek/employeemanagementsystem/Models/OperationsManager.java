@@ -34,8 +34,6 @@ public class OperationsManager {
 
     @ManyToOne
     private Executive executive;
-    @OneToMany
-    private List<DepartmentManager> departmentManagers = new ArrayList<>();
     @PrePersist
     public void prePersist() {
         dateCreated = LocalDate.now();

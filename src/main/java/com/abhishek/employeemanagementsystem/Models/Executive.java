@@ -29,8 +29,6 @@ public class Executive {
     private LocalDate dateOfJoining;
     private LocalDate dateCreated;
 
-    @OneToMany
-    private List<OperationsManager> operationsManagers = new ArrayList<>();
     @PrePersist
     public void prePersist() {
         dateCreated = LocalDate.now();

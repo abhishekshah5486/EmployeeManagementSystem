@@ -82,5 +82,29 @@ public class OperationsManagerController {
         return ResponseEntity.ok("Operations Manager updated successfully.");
     }
 
+    // Assign Operations Manager to an Executive
+    @PostMapping("/{operationsManagerId}/executive/{executiveId}")
+    public ResponseEntity<String> assignOperationsManagerToExecutive(@PathVariable Long operationsManagerId, @PathVariable Long executiveId){
+        operationsManagerService.assignOperationsManagerToExecutive(operationsManagerId, executiveId);
+        return ResponseEntity.ok("Operations Manager Assigned to Executive Successfully");
+    }
+
+    // Update Executive of Operations Manager
+    @PutMapping("/{operationsManagerId}/executive/{executiveId}")
+    public ResponseEntity<String> updateOperationsManagerToExecutive(@PathVariable Long operationsManagerId, @PathVariable Long executiveId){
+        operationsManagerService.updateOperationsManagerToExecutive(operationsManagerId, executiveId);
+        return ResponseEntity.ok("Operations Manager Executive Updated Successfully");
+    }
+
+    // Retrieve all operations managers by Executive ID
+    @GetMapping("/executive/{executiveId}")
+    public List<OperationsManagerResponseDto> getOperationsManagersByExecutive(@PathVariable Long executiveId){
+        List<OperationsManager> retrievedOperationsManagers = operationsManagerService.getOperationsManagersByExecutiveId(executiveId);
+        List<OperationsManagerResponseDto> operationsManagerResponseDtos = new ArrayList<>();
+        for(OperationsManager operationsManager : retrievedOperationsManagers){
+            operationsManagerResponseDtos.add(modelMapper.map(operationsManager, OperationsManagerResponseDto.class));
+        }
+        return operationsManagerResponseDtos;
+    }
 
 }

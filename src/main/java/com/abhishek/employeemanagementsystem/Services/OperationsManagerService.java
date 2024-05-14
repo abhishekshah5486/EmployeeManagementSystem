@@ -14,5 +14,8 @@ public interface OperationsManagerService {
     public List<OperationsManager> getAllOperationsManagers();
     OperationsManager assignDepartmentToOperationsManager(Long operationsManagerId, Long departmentId);
     OperationsManager updateOperationsManagerDepartment(Long operationsManagerId, Long departmentId);
+    OperationsManager assignOperationsManagerToExecutive(Long operationsManagerId, Long executiveId);
+    OperationsManager updateOperationsManagerToExecutive(Long operationsManagerId, Long executiveId);
+    List<OperationsManager> getOperationsManagersByExecutiveId(Long departmentId);
 
 }
