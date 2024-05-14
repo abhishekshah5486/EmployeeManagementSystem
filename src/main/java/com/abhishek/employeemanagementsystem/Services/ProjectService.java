@@ -24,6 +24,6 @@ public interface ProjectService {
     Project assignEmployeeToProject(Long projectId, Long employeeId);
     Project removeEmployeeFromProject(Long projectId, Long employeeId);
     List<Employee> getAllEmployeesAssignedToProject(Long projectId);
-    Project assignProjectToTeam(Long projectId, Long teamId);
-    Project updateProjectTeam(Long projectId, Long teamId);
+//    Project assignProjectToTeam(Long projectId, Long teamId);
+//    Project updateProjectTeam(Long projectId, Long teamId);
 }

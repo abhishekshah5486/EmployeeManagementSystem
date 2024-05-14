@@ -29,6 +29,6 @@ public class Project {
     private LocalDate endDate;
     @OneToMany
     private List<Employee> employees;
-    @ManyToOne
-    private Teams team;
+//    @ManyToOne
+//    private Teams team;
 }

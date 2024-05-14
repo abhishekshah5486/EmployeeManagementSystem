@@ -24,7 +24,7 @@ public class ProjectController {
     @Autowired
     private ModelMapper modelMapper;
 
-    private final ProjectServiceImpl projectService;
+    private final ProjectService projectService;
     public ProjectController(ProjectServiceImpl projectService) {
         this.projectService = projectService;
     }
@@ -155,16 +155,16 @@ public class ProjectController {
     }
 
     // Assign / Adding Project To a Team
-    @PostMapping("/{projectId}/team/{teamId}")
-    public ResponseEntity<String> assignProjectToTeam(@PathVariable Long projectId, @PathVariable Long teamId) {
-        projectService.assignProjectToTeam(projectId, teamId);
-        return ResponseEntity.ok("Team assigned to project successfully");
-    }
+//    @PostMapping("/{projectId}/team/{teamId}")
+//    public ResponseEntity<String> assignProjectToTeam(@PathVariable Long projectId, @PathVariable Long teamId) {
+//        projectService.assignProjectToTeam(projectId, teamId);
+//        return ResponseEntity.ok("Team assigned to project successfully");
+//    }
 
     // Updating Project Team
-    @PutMapping("/{projectId}/team/{teamId}")
-    public ResponseEntity<String> updateProjectTeam(@PathVariable Long projectId, @PathVariable Long teamId) {
-        projectService.updateProjectTeam(projectId, teamId);
-        return ResponseEntity.ok("Project Team updated successfully");
-    }
+//    @PutMapping("/{projectId}/team/{teamId}")
+//    public ResponseEntity<String> updateProjectTeam(@PathVariable Long projectId, @PathVariable Long teamId) {
+//        projectService.updateProjectTeam(projectId, teamId);
+//        return ResponseEntity.ok("Project Team updated successfully");
+//    }
 }

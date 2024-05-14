@@ -28,8 +28,9 @@ public class ProjectServiceImpl implements ProjectService {
     private ProjectSearchService projectSearchService;
     @Autowired
     private EmployeeService employeeService;
-    @Autowired
-    private TeamServiceImpl teamServiceImpl;
+//    @Autowired
+//    private TeamServiceImpl teamServiceImpl;
+
     private ProjectRepository projectRepository;
     public ProjectServiceImpl(ProjectRepository projectRepository) {
         this.projectRepository = projectRepository;
@@ -205,30 +206,30 @@ public class ProjectServiceImpl implements ProjectService {
         return employeeList;
     }
 
-    @Override
-    public Project assignProjectToTeam(Long projectId, Long teamId) {
-        // fetch project by project id
-        Optional<Project> project = projectRepository.findById(projectId);
-        if (project.isEmpty()) {
-            throw new InvalidProjectIDFoundException("Invalid Project ID", projectId);
-        }
-        // fetch team by team id
-        Teams team = teamServiceImpl.getTeamById(teamId);
-        project.get().setTeam(team);
-        return projectRepository.save(project.get());
-    }
-
-    @Override
-    public Project updateProjectTeam(Long projectId, Long teamId) {
-        // fetch project by project id
-        Optional<Project> project = projectRepository.findById(projectId);
-        if (project.isEmpty()) {
-            throw new InvalidProjectIDFoundException("Invalid Project ID", projectId);
-        }
-        // fetch team by team id
-        Teams team = teamServiceImpl.getTeamById(teamId);
-        project.get().setTeam(team);
-        return projectRepository.save(project.get());
-    }
+//    @Override
+//    public Project assignProjectToTeam(Long projectId, Long teamId) {
+//        // fetch project by project id
+//        Optional<Project> project = projectRepository.findById(projectId);
+//        if (project.isEmpty()) {
+//            throw new InvalidProjectIDFoundException("Invalid Project ID", projectId);
+//        }
+//        // fetch team by team id
+//        Teams team = teamServiceImpl.getTeamById(teamId);
+//        project.get().setTeam(team);
+//        return projectRepository.save(project.get());
+//    }
+//
+//    @Override
+//    public Project updateProjectTeam(Long projectId, Long teamId) {
+//        // fetch project by project id
+//        Optional<Project> project = projectRepository.findById(projectId);
+//        if (project.isEmpty()) {
+//            throw new InvalidProjectIDFoundException("Invalid Project ID", projectId);
+//        }
+//        // fetch team by team id
+//        Teams team = teamServiceImpl.getTeamById(teamId);
+//        project.get().setTeam(team);
+//        return projectRepository.save(project.get());
+//    }
 
 }
