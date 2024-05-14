@@ -531,6 +531,24 @@ public class GlobalExceptionHandler {
         return responseEntity;
     }
 
+    @ExceptionHandler(ExecutiveIDNotFoundException.class)
+    public ResponseEntity<ExceptionDto> handleExecutiveIDNotFoundException(ExecutiveIDNotFoundException e) {
+        ExceptionDto exceptionDto = new ExceptionDto();
+        exceptionDto.setMessage("Executive with ID " + e.getId() + " not found.");
+        exceptionDto.setResolution("ExecutiveIDNotFoundException");
+        ResponseEntity<ExceptionDto> responseEntity = new ResponseEntity<>(exceptionDto, HttpStatus.BAD_REQUEST);
+        return responseEntity;
+    }
+
+    @ExceptionHandler(NoExecutivesFoundException.class)
+    public ResponseEntity<ExceptionDto> handleNoExecutiveFoundException(NoExecutivesFoundException e) {
+        ExceptionDto exceptionDto = new ExceptionDto();
+        exceptionDto.setMessage("No Executives Found !");
+        exceptionDto.setResolution("NoExecutivesFoundException");
+        ResponseEntity<ExceptionDto> responseEntity = new ResponseEntity<>(exceptionDto, HttpStatus.BAD_REQUEST);
+        return responseEntity;
+    }
+
 //    @ExceptionHandler(RuntimeException.class)
 //    public ResponseEntity<ExceptionDto> handleRuntimeException(RuntimeException e) {
 //        ExceptionDto exceptionDto = new ExceptionDto();
