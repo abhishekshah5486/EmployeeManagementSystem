@@ -17,8 +17,6 @@ import java.util.Optional;
 @Service
 public class AdminServiceImpl implements AdminService {
 
-    @Autowired
-    private DepartmentManagerServiceImpl departmentManagerService;
     private AdminRepository adminRepository;
     public AdminServiceImpl(AdminRepository adminRepository) {
         this.adminRepository = adminRepository;
@@ -106,44 +104,44 @@ public class AdminServiceImpl implements AdminService {
         return adminRepository.save(optionalAdmin.get());
     }
 
-    @Override
-    public Admin assignAdminToDepartmentManager(Long adminId, Long departmentManagerId) {
-        // Fetch Admin by Admin id
-        Optional<Admin> optionalAdmin = adminRepository.findById(adminId);
-        if (optionalAdmin.isEmpty()){
-            throw new AdminNotFoundException("Admin not found", adminId);
-        }
-        // Fetch DepartmentManager by Department Id
-        DepartmentManager departmentManager = departmentManagerService.getDepartmentManagerById(departmentManagerId);
-        optionalAdmin.get().setDepartmentManager(departmentManager);
-        return adminRepository.save(optionalAdmin.get());
-    }
-
-    @Override
-    public Admin updateAdminToDepartmentManager(Long adminId, Long departmentManagerId) {
-        // Fetch Admin by Admin id
-        Optional<Admin> optionalAdmin = adminRepository.findById(adminId);
-        if (optionalAdmin.isEmpty()){
-            throw new AdminNotFoundException("Admin not found", adminId);
-        }
-        // Fetch DepartmentManager by Department Id
-        DepartmentManager departmentManager = departmentManagerService.getDepartmentManagerById(departmentManagerId);
-        optionalAdmin.get().setDepartmentManager(departmentManager);
-        return adminRepository.save(optionalAdmin.get());
-    }
-
-    @Override
-    public List<Admin> getAdminsByDepartmentManagerId(Long departmentManagerId) {
-        List<Admin> allAdmins = adminRepository.findAll();
-        if (allAdmins.isEmpty()){
-            throw new NoAdminsFoundException("No admins found");
-        }
-        List<Admin> returnAdmins = new ArrayList<>();
-        for (Admin admin : allAdmins){
-            if (admin.getDepartmentManager().getId().equals(departmentManagerId)){
-                returnAdmins.add(admin);
-            }
-        }
-        return returnAdmins;
-    }
+//    @Override
+//    public Admin assignAdminToDepartmentManager(Long adminId, Long departmentManagerId) {
+//        // Fetch Admin by Admin id
+//        Optional<Admin> optionalAdmin = adminRepository.findById(adminId);
+//        if (optionalAdmin.isEmpty()){
+//            throw new AdminNotFoundException("Admin not found", adminId);
+//        }
+//        // Fetch DepartmentManager by Department Id
+//        DepartmentManager departmentManager = departmentManagerService.getDepartmentManagerById(departmentManagerId);
+//        optionalAdmin.get().setDepartmentManager(departmentManager);
+//        return adminRepository.save(optionalAdmin.get());
+//    }
+//
+//    @Override
+//    public Admin updateAdminToDepartmentManager(Long adminId, Long departmentManagerId) {
+//        // Fetch Admin by Admin id
+//        Optional<Admin> optionalAdmin = adminRepository.findById(adminId);
+//        if (optionalAdmin.isEmpty()){
+//            throw new AdminNotFoundException("Admin not found", adminId);
+//        }
+//        // Fetch DepartmentManager by Department Id
+//        DepartmentManager departmentManager = departmentManagerService.getDepartmentManagerById(departmentManagerId);
+//        optionalAdmin.get().setDepartmentManager(departmentManager);
+//        return adminRepository.save(optionalAdmin.get());
+//    }
+//
+//    @Override
+//    public List<Admin> getAdminsByDepartmentManagerId(Long departmentManagerId) {
+//        List<Admin> allAdmins = adminRepository.findAll();
+//        if (allAdmins.isEmpty()){
+//            throw new NoAdminsFoundException("No admins found");
+//        }
+//        List<Admin> returnAdmins = new ArrayList<>();
+//        for (Admin admin : allAdmins){
+//            if (admin.getDepartmentManager().getId().equals(departmentManagerId)){
+//                returnAdmins.add(admin);
+//            }
+//        }
+//        return returnAdmins;
+//    }
 }

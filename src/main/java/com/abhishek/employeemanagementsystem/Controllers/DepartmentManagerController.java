@@ -1,9 +1,8 @@
 package com.abhishek.employeemanagementsystem.Controllers;
 
-import com.abhishek.employeemanagementsystem.Dtos.CreateDepartmentManagerRequestDto;
-import com.abhishek.employeemanagementsystem.Dtos.DepartmentManagerResponseDto;
-import com.abhishek.employeemanagementsystem.Dtos.OperationsManagerResponseDto;
-import com.abhishek.employeemanagementsystem.Dtos.UpdateDepartmentManagerRequestDto;
+import com.abhishek.employeemanagementsystem.Dtos.*;
+import com.abhishek.employeemanagementsystem.Models.Admin;
+import com.abhishek.employeemanagementsystem.Models.Department;
 import com.abhishek.employeemanagementsystem.Models.DepartmentManager;
 import com.abhishek.employeemanagementsystem.Models.OperationsManager;
 import com.abhishek.employeemanagementsystem.Repositories.DepartmentManagerRepository;
@@ -84,6 +83,14 @@ public class DepartmentManagerController {
         return ResponseEntity.ok("Department Manager updated successfully.");
     }
 
+    // Get Department of a Department Manager
+    @GetMapping("/{departmentManagerId}/department")
+    public DepartmentResponseDto getDepartmentManagerDepartmentById(@PathVariable Long departmentManagerId) {
+        Department department = departmentManagerService.getDepartmentManagerDepartmentById(departmentManagerId);
+        DepartmentResponseDto departmentResponseDto = modelMapper.map(department, DepartmentResponseDto.class);
+        return departmentResponseDto;
+    }
+
     // Assign Department Manager to an Operations Manager
     @PostMapping("/{departmentManagerId}/operations-manager/{operationsManagerId}")
     public ResponseEntity<String> assignDepartmentManagerToOperationsManager(@PathVariable Long departmentManagerId, @PathVariable Long operationsManagerId){
@@ -110,4 +117,37 @@ public class DepartmentManagerController {
     }
 
 
+    // Adding / Assigning Admins to Department Manager
+    @PostMapping("/{departmentManagerId}/admin/{adminId}")
+    public ResponseEntity<String> assignAdminToDepartmentManager(@PathVariable Long departmentManagerId, @PathVariable Long adminId) {
+        departmentManagerService.assignAdminToDepartmentManager(departmentManagerId, adminId);
+        return ResponseEntity.ok("Admin Id : " + adminId +  " assigned to department manager Id : " + departmentManagerId);
+    }
+
+    // Removing Admins from Department Manager
+    @DeleteMapping("/{departmentManagerId}/admin/{adminId}")
+    public ResponseEntity<String> deleteAdminFromDepartmentManager(@PathVariable Long departmentManagerId, @PathVariable Long adminId) {
+        departmentManagerService.deleteAdminFromDepartmentManager(departmentManagerId, adminId);
+        return ResponseEntity.ok("Admin ID : " + adminId +  " deleted from department manager Id : " + departmentManagerId);
+    }
+
+    // Get all admins by department Manager ID
+    @GetMapping("/{departmentManagerId}/admins")
+    public List<AdminResponseDto> getAllAdminsByDepartmentManagerId(@PathVariable Long departmentManagerId) {
+        List<Admin> admins = departmentManagerService.getAllAdminsByDepartmentManagerId(departmentManagerId);
+        List<AdminResponseDto> adminResponseDtos = new ArrayList<>();
+        for (Admin admin : admins) {
+            adminResponseDtos.add(modelMapper.map(admin, AdminResponseDto.class));
+        }
+        return adminResponseDtos;
+    }
+
+    // Get DepartmentManager by Admin Id
+    @GetMapping("/admin/{adminId}")
+    public DepartmentManagerResponseDto getDepartmentManagersByAdminId(@PathVariable Long adminId) {
+        DepartmentManager departmentManager = departmentManagerService.getDepartmentManagerByAdminId(adminId);
+        DepartmentManagerResponseDto departmentManagerResponseDto = modelMapper.map(departmentManager, DepartmentManagerResponseDto.class);
+        departmentManagerResponseDto.setMessage("Department Manager retrieved successfully.");
+        return departmentManagerResponseDto;
+    }
 }

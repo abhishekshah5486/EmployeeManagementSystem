@@ -4,7 +4,9 @@ import com.abhishek.employeemanagementsystem.Dtos.CreateDepartmentManagerRequest
 import com.abhishek.employeemanagementsystem.Dtos.DepartmentManagerResponseDto;
 import com.abhishek.employeemanagementsystem.Dtos.UpdateDepartmentManagerRequestDto;
 import com.abhishek.employeemanagementsystem.Exceptions.DepartmentManagerIDNotFoundException;
+import com.abhishek.employeemanagementsystem.Exceptions.NoAdminsFoundException;
 import com.abhishek.employeemanagementsystem.Exceptions.NoDepartmentManagersFoundException;
+import com.abhishek.employeemanagementsystem.Models.Admin;
 import com.abhishek.employeemanagementsystem.Models.Department;
 import com.abhishek.employeemanagementsystem.Models.DepartmentManager;
 import com.abhishek.employeemanagementsystem.Models.OperationsManager;
@@ -19,6 +21,8 @@ import java.util.Optional;
 @Service
 public class DepartmentManagerServiceImpl implements DepartmentManagerService {
 
+    @Autowired
+    private AdminServiceImpl adminServiceImpl;
     @Autowired
     private DepartmentServiceImpl departmentService;
     @Autowired
@@ -142,6 +146,83 @@ public class DepartmentManagerServiceImpl implements DepartmentManagerService {
             }
         }
         return returnDepartmentManagers;
+    }
+
+    @Override
+    public DepartmentManager assignAdminToDepartmentManager(Long departmentManagerId, Long adminId) {
+        // Fetch Department Manager by Department Manager id
+        Optional<DepartmentManager> departmentManager = departmentManagerRepository.findById(departmentManagerId);
+        if (departmentManager.isEmpty()){
+            throw new DepartmentManagerIDNotFoundException("No department manager found with this id !", departmentManagerId);
+        }
+        // Fetch Admin from admin id
+        Admin admin = adminServiceImpl.getAdminById(adminId);
+        departmentManager.get().getAdmins().add(admin);
+        return departmentManagerRepository.save(departmentManager.get());
+    }
+
+    @Override
+    public void deleteAdminFromDepartmentManager(Long departmentManagerId, Long adminId) {
+        // Fetch Department Manager by Department Manager id
+        Optional<DepartmentManager> departmentManager = departmentManagerRepository.findById(departmentManagerId);
+        if (departmentManager.isEmpty()){
+            throw new DepartmentManagerIDNotFoundException("No department manager found with this id !", departmentManagerId);
+        }
+        List<Admin> admins = departmentManager.get().getAdmins();
+        if (admins.isEmpty()){
+            throw new NoAdminsFoundException("No admins found");
+        }
+        for (int j=0; j<admins.size(); j++){
+            if (admins.get(j).getId().equals(adminId)){
+                admins.remove(j);
+            }
+        }
+        departmentManager.get().setAdmins(admins);
+        departmentManagerRepository.save(departmentManager.get());
+    }
+
+    @Override
+    public List<Admin> getAllAdminsByDepartmentManagerId(Long departmentManagerId) {
+        // Fetch Department Manager by Department Manager id
+        Optional<DepartmentManager> departmentManager = departmentManagerRepository.findById(departmentManagerId);
+        if (departmentManager.isEmpty()){
+            throw new DepartmentManagerIDNotFoundException("No department manager found with this id !", departmentManagerId);
+        }
+        List<Admin> admins = departmentManager.get().getAdmins();
+        if (admins.isEmpty()){
+            throw new NoAdminsFoundException("No admins found");
+        }
+        return admins;
+    }
+
+    @Override
+    public DepartmentManager getDepartmentManagerByAdminId(Long adminId) {
+        List<DepartmentManager> allDepartmentManagers = departmentManagerRepository.findAll();
+        if (allDepartmentManagers.isEmpty()){
+            throw new NoDepartmentManagersFoundException("No department managers found");
+        }
+        DepartmentManager returnDepartmentManager = null;
+        for (int j=0; j<allDepartmentManagers.size(); j++){
+            DepartmentManager departmentManager = allDepartmentManagers.get(j);
+            List<Admin> admins = departmentManager.getAdmins();
+            for (int k=0; k<admins.size(); k++){
+                if (admins.get(k).getId().equals(adminId)){
+                    returnDepartmentManager = departmentManager;
+                    break;
+                }
+            }
+        }
+        return returnDepartmentManager;
+    }
+
+    @Override
+    public Department getDepartmentManagerDepartmentById(Long departmentManagerId) {
+        // Fetch Department Manager by Department Manager id
+        Optional<DepartmentManager> departmentManager = departmentManagerRepository.findById(departmentManagerId);
+        if (departmentManager.isEmpty()){
+            throw new DepartmentManagerIDNotFoundException("No department manager found with this id !", departmentManagerId);
+        }
+        return departmentManager.get().getDepartment();
     }
 
 

@@ -23,14 +23,10 @@ public class Department {
     private String description;
 
     @ElementCollection
-    private List<Long> employeeIds = new ArrayList<>();
-    @ElementCollection
-    private List<Long> departmentMemberIds = new ArrayList<>();
-    @ElementCollection
     private List<Long> roleIds = new ArrayList<>();
     @ElementCollection
     private List<Long> adminIds = new ArrayList<>();
-    @OneToMany(mappedBy = "department")
+    @OneToMany
     private List<Teams> teams = new ArrayList<>();
     @ElementCollection
     private List<Long> departmentManagerIds = new ArrayList<>();

@@ -33,6 +33,8 @@ public class DepartmentManager {
     private LocalDate dateCreated;
     @ManyToOne
     private OperationsManager operationsManager;
+    @OneToMany
+    private List<Admin> admins = new ArrayList<>();
 
     @PrePersist
     public void prePersist() {

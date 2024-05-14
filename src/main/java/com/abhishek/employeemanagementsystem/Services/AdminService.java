@@ -14,7 +14,7 @@ public interface AdminService {
     Admin getAdminByUsername(String username);
     Admin adminLogin(AdminLoginRequestDto adminLoginRequestDto);
     Admin adminLogout(Long id);
-    Admin assignAdminToDepartmentManager(Long adminId, Long departmentManagerId);
-    Admin updateAdminToDepartmentManager(Long adminId, Long departmentManagerId);
-    List<Admin> getAdminsByDepartmentManagerId(Long departmentManagerId);
+//    Admin assignAdminToDepartmentManager(Long adminId, Long departmentManagerId);
+//    Admin updateAdminToDepartmentManager(Long adminId, Long departmentManagerId);
+//    List<Admin> getAdminsByDepartmentManagerId(Long departmentManagerId);
 }

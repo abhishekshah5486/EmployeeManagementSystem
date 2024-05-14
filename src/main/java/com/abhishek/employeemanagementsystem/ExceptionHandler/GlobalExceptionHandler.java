@@ -549,22 +549,22 @@ public class GlobalExceptionHandler {
         return responseEntity;
     }
 
-//    @ExceptionHandler(RuntimeException.class)
-//    public ResponseEntity<ExceptionDto> handleRuntimeException(RuntimeException e) {
-//        ExceptionDto exceptionDto = new ExceptionDto();
-//        exceptionDto.setMessage("Something went wrong");
-//        exceptionDto.setResolution("RuntimeException");
-//        ResponseEntity<ExceptionDto> responseEntity = new ResponseEntity<>(exceptionDto, HttpStatus.INTERNAL_SERVER_ERROR);
-//        return responseEntity;
-//    }
-//
-//    @ExceptionHandler(Exception.class)
-//    public ResponseEntity<ExceptionDto> handleException(Exception e) {
-//        ExceptionDto exceptionDto = new ExceptionDto();
-//        exceptionDto.setMessage("Something went wrong");
-//        exceptionDto.setResolution("GeneralException");
-//        ResponseEntity<ExceptionDto> responseEntity = new ResponseEntity<>(exceptionDto, HttpStatus.INTERNAL_SERVER_ERROR);
-//        return responseEntity;
-//    }
+    @ExceptionHandler(RuntimeException.class)
+    public ResponseEntity<ExceptionDto> handleRuntimeException(RuntimeException e) {
+        ExceptionDto exceptionDto = new ExceptionDto();
+        exceptionDto.setMessage("Something went wrong");
+        exceptionDto.setResolution("RuntimeException");
+        ResponseEntity<ExceptionDto> responseEntity = new ResponseEntity<>(exceptionDto, HttpStatus.INTERNAL_SERVER_ERROR);
+        return responseEntity;
+    }
+
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<ExceptionDto> handleException(Exception e) {
+        ExceptionDto exceptionDto = new ExceptionDto();
+        exceptionDto.setMessage("Something went wrong");
+        exceptionDto.setResolution("GeneralException");
+        ResponseEntity<ExceptionDto> responseEntity = new ResponseEntity<>(exceptionDto, HttpStatus.INTERNAL_SERVER_ERROR);
+        return responseEntity;
+    }
 
 }

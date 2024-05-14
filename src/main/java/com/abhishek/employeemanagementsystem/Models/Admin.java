@@ -30,9 +30,6 @@ public class Admin {
     private EmploymentStatus employmentStatus = EmploymentStatus.ACTIVE;
     private LocalDate dateCreated;
 
-    @ManyToOne
-    private DepartmentManager departmentManager;
-
     @PrePersist
     public void prePersist() {
         dateCreated = LocalDate.now();

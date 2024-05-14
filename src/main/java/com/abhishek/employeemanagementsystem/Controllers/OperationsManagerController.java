@@ -82,7 +82,7 @@ public class OperationsManagerController {
         return ResponseEntity.ok("Operations Manager updated successfully.");
     }
 
-    // Assign Operations Manager to an Executive
+//     Assign Operations Manager to an Executive
     @PostMapping("/{operationsManagerId}/executive/{executiveId}")
     public ResponseEntity<String> assignOperationsManagerToExecutive(@PathVariable Long operationsManagerId, @PathVariable Long executiveId){
         operationsManagerService.assignOperationsManagerToExecutive(operationsManagerId, executiveId);
