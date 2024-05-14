@@ -513,6 +513,24 @@ public class GlobalExceptionHandler {
         return responseEntity;
     }
 
+    @ExceptionHandler(OperationsManagerIDNotFoundException.class)
+    public ResponseEntity<ExceptionDto> handleOperationsManagerIDNotFoundException(OperationsManagerIDNotFoundException e) {
+        ExceptionDto exceptionDto = new ExceptionDto();
+        exceptionDto.setMessage("Operations Manager with ID " + e.getId() + " not found.");
+        exceptionDto.setResolution("OperationsManagerIDNotFoundException");
+        ResponseEntity<ExceptionDto> responseEntity = new ResponseEntity<>(exceptionDto, HttpStatus.BAD_REQUEST);
+        return responseEntity;
+    }
+
+    @ExceptionHandler(NoOperationsManagersFoundException.class)
+    public ResponseEntity<ExceptionDto> handleNoOperationsManagersFoundException(NoOperationsManagersFoundException e) {
+        ExceptionDto exceptionDto = new ExceptionDto();
+        exceptionDto.setMessage("No Operations Managers Found !");
+        exceptionDto.setResolution("NoOperationsManagersFoundException");
+        ResponseEntity<ExceptionDto> responseEntity = new ResponseEntity<>(exceptionDto, HttpStatus.BAD_REQUEST);
+        return responseEntity;
+    }
+
 //    @ExceptionHandler(RuntimeException.class)
 //    public ResponseEntity<ExceptionDto> handleRuntimeException(RuntimeException e) {
 //        ExceptionDto exceptionDto = new ExceptionDto();

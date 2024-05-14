@@ -11,11 +11,9 @@ import java.time.LocalDate;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class OperationsManagerResponseDto {
-    private Long id;
+public class UpdateOperationsManagerRequestDto {
     private String name;
     private String email;
     private String username;
     private LocalDate dateOfJoining;
-    private String message;
 }

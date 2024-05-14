@@ -11,11 +11,10 @@ import java.time.LocalDate;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class OperationsManagerResponseDto {
-    private Long id;
+public class CreateOperationsManagerRequestDto {
     private String name;
     private String email;
     private String username;
+    private String password;
     private LocalDate dateOfJoining;
-    private String message;
 }

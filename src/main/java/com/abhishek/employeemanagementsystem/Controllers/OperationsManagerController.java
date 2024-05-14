@@ -1,9 +1,17 @@
 package com.abhishek.employeemanagementsystem.Controllers;
 
+import com.abhishek.employeemanagementsystem.Dtos.CreateOperationsManagerRequestDto;
+import com.abhishek.employeemanagementsystem.Dtos.OperationsManagerResponseDto;
+import com.abhishek.employeemanagementsystem.Dtos.UpdateOperationsManagerRequestDto;
 import com.abhishek.employeemanagementsystem.Models.OperationsManager;
+import com.abhishek.employeemanagementsystem.Services.OperationsManagerService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @RestController
 @RequestMapping("/operations-managers")
@@ -11,25 +19,53 @@ public class OperationsManagerController {
     @Autowired
     private ModelMapper modelMapper;
 
+    private OperationsManagerService operationsManagerService;
+    public OperationsManagerController(OperationsManagerService operationsManagerService) {
+        this.operationsManagerService = operationsManagerService;
+    }
+
     // CRUD OPERATIONS FOR OPERATIONS MANAGERS
     @PostMapping("/")
-    public OperationsManager createOperationsManager(@RequestBody OperationsManager operationsManager) {
-        return null;
+    public OperationsManagerResponseDto createOperationsManager(@RequestBody CreateOperationsManagerRequestDto operationsManagerRequestDto) {
+        OperationsManager operationsManager = operationsManagerService.createOperationsManager(operationsManagerRequestDto);
+        OperationsManagerResponseDto operationsManagerResponseDto = modelMapper.map(operationsManager, OperationsManagerResponseDto.class);
+        operationsManagerResponseDto.setMessage("Operations Manager created successfully.");
+        return operationsManagerResponseDto;
     }
 
     @GetMapping("/{id}")
-    public OperationsManager getOperationsManagerById(@PathVariable Long id) {
-        return null;
+    public OperationsManagerResponseDto getOperationsManagerById(@PathVariable Long id) {
+        OperationsManager operationsManager = operationsManagerService.getOperationsManagerById(id);
+        OperationsManagerResponseDto operationsManagerResponseDto = modelMapper.map(operationsManager, OperationsManagerResponseDto.class);
+        operationsManagerResponseDto.setMessage("Operations Manager retrieved successfully.");
+        return operationsManagerResponseDto;
     }
 
     @PutMapping("/{id}")
-    public OperationsManager updateOperationsManager(@PathVariable Long id, @RequestBody OperationsManager operationsManager) {
-        return null;
+    public OperationsManagerResponseDto updateOperationsManager(@PathVariable Long id, @RequestBody UpdateOperationsManagerRequestDto updateOperationsManagerRequestDto) {
+        OperationsManager operationsManager = operationsManagerService.updateOperationsManager(id, updateOperationsManagerRequestDto);
+        OperationsManagerResponseDto operationsManagerResponseDto = modelMapper.map(operationsManager, OperationsManagerResponseDto.class);
+        operationsManagerResponseDto.setMessage("Operations Manager updated successfully.");
+        return operationsManagerResponseDto;
     }
 
     @DeleteMapping("/{id}")
-    public void deleteOperationsManager(@PathVariable Long id) {
+    public ResponseEntity<String> deleteOperationsManager(@PathVariable Long id) {
+        operationsManagerService.deleteOperationsManager(id);
+        return ResponseEntity.ok("Operations Manager deleted successfully.");
+    }
 
+    // Retrieve all Operations Managers
+    @GetMapping("/")
+    public List<OperationsManagerResponseDto> getAllOperationsManagers() {
+        List<OperationsManager> operationsManagers = operationsManagerService.getAllOperationsManagers();
+        List<OperationsManagerResponseDto> operationsManagerResponseDtos = new ArrayList<>();
+        for (OperationsManager operationsManager : operationsManagers) {
+            OperationsManagerResponseDto operationsManagerResponseDto = modelMapper.map(operationsManager, OperationsManagerResponseDto.class);
+            operationsManagerResponseDto.setMessage("Operations Manager retrieved successfully.");
+            operationsManagerResponseDtos.add(operationsManagerResponseDto);
+        }
+        return operationsManagerResponseDtos;
     }
 
 }
