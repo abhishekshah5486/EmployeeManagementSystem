@@ -23,13 +23,17 @@ public class Department {
     private String description;
 
     @ElementCollection
-    List<Long> employeeIds = new ArrayList<>();
+    private List<Long> employeeIds = new ArrayList<>();
     @ElementCollection
-    List<Long> departmentMemberIds = new ArrayList<>();
+    private List<Long> departmentMemberIds = new ArrayList<>();
     @ElementCollection
-    List<Long> roleIds = new ArrayList<>();
+    private List<Long> roleIds = new ArrayList<>();
     @ElementCollection
-    List<Long> adminIds = new ArrayList<>();
+    private List<Long> adminIds = new ArrayList<>();
     @OneToMany(mappedBy = "department")
-    List<Teams> teams = new ArrayList<>();
+    private List<Teams> teams = new ArrayList<>();
+    @ElementCollection
+    private List<Long> departmentManagerIds = new ArrayList<>();
+    @OneToOne
+    private OperationsManager operationsManager;
 }

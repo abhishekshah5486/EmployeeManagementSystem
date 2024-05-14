@@ -7,6 +7,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Setter
@@ -29,6 +31,11 @@ public class DepartmentManager {
     private LocalDate dateOfJoining;
     private LocalDate dateOfLeaving;
     private LocalDate dateCreated;
+
+    @OneToMany
+    private List<Admin> admins = new ArrayList<>();
+    @ManyToOne
+    private OperationsManager operationsManager;
 
     @PrePersist
     public void prePersist() {
