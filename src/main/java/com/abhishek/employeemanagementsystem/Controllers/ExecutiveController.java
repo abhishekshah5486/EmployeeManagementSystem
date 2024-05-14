@@ -68,4 +68,20 @@ public class ExecutiveController {
         return executiveResponseDtos;
     }
 
+    // Assigning / Adding Department to Executive
+    @PostMapping("/{executiveId}/department/{departmentId}")
+    public ResponseEntity<String> assignDepartmentToExecutive(@PathVariable Long executiveId, @PathVariable Long departmentId) {
+        executiveService.assignDepartmentToExecutive(executiveId, departmentId);
+        return ResponseEntity.ok("Executive assigned to department: " + executiveId + " to department: " + departmentId);
+    }
+
+    // Updating Department of Executive
+    @PutMapping("/{executiveId}/department/{departmentId}")
+    public ResponseEntity<String> updateExecutiveDepartment(@PathVariable Long executiveId, @PathVariable Long departmentId) {
+        executiveService.updateExecutiveDepartment(executiveId, departmentId);
+        return ResponseEntity.ok("Executive updated successfully.");
+    }
+
+
+
 }

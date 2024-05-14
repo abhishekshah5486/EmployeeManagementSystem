@@ -12,5 +12,7 @@ public interface OperationsManagerService {
     public void deleteOperationsManager(Long id);
     public OperationsManager getOperationsManagerById(Long id);
     public List<OperationsManager> getAllOperationsManagers();
+    OperationsManager assignDepartmentToOperationsManager(Long operationsManagerId, Long departmentId);
+    OperationsManager updateOperationsManagerDepartment(Long operationsManagerId, Long departmentId);
 
 }

@@ -4,8 +4,10 @@ import com.abhishek.employeemanagementsystem.Dtos.CreateExecutiveRequestDto;
 import com.abhishek.employeemanagementsystem.Dtos.UpdateExecutiveRequestDto;
 import com.abhishek.employeemanagementsystem.Exceptions.ExecutiveIDNotFoundException;
 import com.abhishek.employeemanagementsystem.Exceptions.NoExecutivesFoundException;
+import com.abhishek.employeemanagementsystem.Models.Department;
 import com.abhishek.employeemanagementsystem.Models.Executive;
 import com.abhishek.employeemanagementsystem.Repositories.ExecutiveRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,6 +16,8 @@ import java.util.Optional;
 @Service
 public class ExecutiveServiceImpl implements ExecutiveService {
 
+    @Autowired
+    private DepartmentServiceImpl departmentService;
     private ExecutiveRepository executiveRepository;
     public ExecutiveServiceImpl(ExecutiveRepository executiveRepository) {
         this.executiveRepository = executiveRepository;
@@ -64,5 +68,32 @@ public class ExecutiveServiceImpl implements ExecutiveService {
         }
         return executives;
     }
+
+//    @Override
+//    public Executive assignDepartmentToExecutive(Long executiveId, Long departmentId) {
+//        // Fetch the executive by id
+//        Optional<Executive> executive = executiveRepository.findById(executiveId);
+//        if (executive.isEmpty()) {
+//            throw new ExecutiveIDNotFoundException("No executive found with this id !", executiveId);
+//        }
+//        // Fetch department by department id
+//        Department department = departmentService.getDepartmentById(departmentId);
+//        executive.get().setDepartment(department);
+//        return executiveRepository.save(executive.get());
+//    }
+//
+//    @Override
+//    public Executive updateExecutiveDepartment(Long executiveId, Long departmentId) {
+//        // Fetch the executive by id
+//        Optional<Executive> executive = executiveRepository.findById(executiveId);
+//        if (executive.isEmpty()) {
+//            throw new ExecutiveIDNotFoundException("No executive found with this id !", executiveId);
+//        }
+//        // Fetch department by department id
+//        Department department = departmentService.getDepartmentById(departmentId);
+//        executive.get().setDepartment(department);
+//        return executiveRepository.save(executive.get());
+//    }
+
 
 }

@@ -12,5 +12,7 @@ public interface ExecutiveService {
     void deleteExecutive(Long id);
     Executive getExecutiveById(Long id);
     List<Executive> getAllExecutives();
+//    Executive assignDepartmentToExecutive(Long executiveId, Long departmentId);
+//    Executive updateExecutiveDepartment(Long executiveId, Long departmentId);
 
 }

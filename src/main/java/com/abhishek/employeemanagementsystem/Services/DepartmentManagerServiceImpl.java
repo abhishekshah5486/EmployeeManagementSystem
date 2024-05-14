@@ -5,8 +5,10 @@ import com.abhishek.employeemanagementsystem.Dtos.DepartmentManagerResponseDto;
 import com.abhishek.employeemanagementsystem.Dtos.UpdateDepartmentManagerRequestDto;
 import com.abhishek.employeemanagementsystem.Exceptions.DepartmentManagerIDNotFoundException;
 import com.abhishek.employeemanagementsystem.Exceptions.NoDepartmentManagersFoundException;
+import com.abhishek.employeemanagementsystem.Models.Department;
 import com.abhishek.employeemanagementsystem.Models.DepartmentManager;
 import com.abhishek.employeemanagementsystem.Repositories.DepartmentManagerRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,6 +17,8 @@ import java.util.Optional;
 @Service
 public class DepartmentManagerServiceImpl implements DepartmentManagerService {
 
+    @Autowired
+    private DepartmentServiceImpl departmentService;
     private DepartmentManagerRepository departmentManagerRepository;
     public DepartmentManagerServiceImpl(DepartmentManagerRepository departmentManagerRepository) {
         this.departmentManagerRepository = departmentManagerRepository;
@@ -63,5 +67,31 @@ public class DepartmentManagerServiceImpl implements DepartmentManagerService {
             throw new NoDepartmentManagersFoundException("No Department Managers Found.");
         }
         return departmentManagers;
+    }
+
+    @Override
+    public DepartmentManager assignDepartmentToDepartmentManager(Long departmentManagerId, Long departmentId) {
+        // Fetch the department manager by id
+        Optional<DepartmentManager> departmentManager = departmentManagerRepository.findById(departmentManagerId);
+        if (departmentManager.isEmpty()){
+            throw new DepartmentManagerIDNotFoundException("No department manager found with this id !", departmentManagerId);
+        }
+        // fetch department by department id
+        Department department = departmentService.getDepartmentById(departmentId);
+        departmentManager.get().setDepartment(department);
+        return departmentManagerRepository.save(departmentManager.get());
+    }
+
+    @Override
+    public DepartmentManager updateDepartmentManagerDepartment(Long departmentManagerId, Long departmentId) {
+        // Fetch the department manager by id
+        Optional<DepartmentManager> departmentManager = departmentManagerRepository.findById(departmentManagerId);
+        if (departmentManager.isEmpty()){
+            throw new DepartmentManagerIDNotFoundException("No department manager found with this id !", departmentManagerId);
+        }
+        // fetch department by department id
+        Department department = departmentService.getDepartmentById(departmentId);
+        departmentManager.get().setDepartment(department);
+        return departmentManagerRepository.save(departmentManager.get());
     }
 }

@@ -68,4 +68,19 @@ public class OperationsManagerController {
         return operationsManagerResponseDtos;
     }
 
+    // Assigning / Adding Department to Operations Manager
+    @PostMapping("/{operationsManagerId}/department/{departmentId}")
+    public ResponseEntity<String> assignDepartmentToOperationsManager(@PathVariable Long operationsManagerId, @PathVariable Long departmentId) {
+        operationsManagerService.assignDepartmentToOperationsManager(operationsManagerId, departmentId);
+        return ResponseEntity.ok("Operations Manager assigned to department: " + operationsManagerId + " to department: " + departmentId);
+    }
+
+    // Updating Department of Operations Manager
+    @PutMapping("/{operationsManagerId}/department/{departmentId}")
+    public ResponseEntity<String> updateOperationsManagerDepartment(@PathVariable Long operationsManagerId, @PathVariable Long departmentId) {
+        operationsManagerService.updateOperationsManagerDepartment(operationsManagerId, departmentId);
+        return ResponseEntity.ok("Operations Manager updated successfully.");
+    }
+
+
 }
