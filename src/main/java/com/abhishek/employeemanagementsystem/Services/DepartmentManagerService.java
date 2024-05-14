@@ -10,8 +10,8 @@ import java.util.List;
 
 public interface DepartmentManagerService {
     DepartmentManager createDepartmentManager(CreateDepartmentManagerRequestDto createDepartmentManagerRequestDto);
-    DepartmentManager updateDepartmentManager(UpdateDepartmentManagerRequestDto updateDepartmentManagerRequestDto);
-    void deleteDepartmentManager(int id);
-    DepartmentManager getDepartmentManagerById(int id);
+    DepartmentManager updateDepartmentManager(Long id, UpdateDepartmentManagerRequestDto updateDepartmentManagerRequestDto);
+    void deleteDepartmentManager(Long id);
+    DepartmentManager getDepartmentManagerById(Long id);
     List<DepartmentManager> getAllDepartmentManagers();
 }

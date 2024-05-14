@@ -504,6 +504,15 @@ public class GlobalExceptionHandler {
         return responseEntity;
     }
 
+    @ExceptionHandler(DepartmentManagerIDNotFoundException.class)
+    public ResponseEntity<ExceptionDto> handleDepartmentManagerIDNotFoundException(DepartmentManagerIDNotFoundException e) {
+        ExceptionDto exceptionDto = new ExceptionDto();
+        exceptionDto.setMessage("Department Manager with ID " + e.getId() + " not found.");
+        exceptionDto.setResolution("DepartmentManagerIDNotFoundException");
+        ResponseEntity<ExceptionDto> responseEntity = new ResponseEntity<>(exceptionDto, HttpStatus.BAD_REQUEST);
+        return responseEntity;
+    }
+
 //    @ExceptionHandler(RuntimeException.class)
 //    public ResponseEntity<ExceptionDto> handleRuntimeException(RuntimeException e) {
 //        ExceptionDto exceptionDto = new ExceptionDto();
