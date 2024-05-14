@@ -31,9 +31,6 @@ public class DepartmentManager {
     private LocalDate dateOfJoining;
     private LocalDate dateOfLeaving;
     private LocalDate dateCreated;
-
-    @OneToMany
-    private List<Admin> admins = new ArrayList<>();
     @ManyToOne
     private OperationsManager operationsManager;
 

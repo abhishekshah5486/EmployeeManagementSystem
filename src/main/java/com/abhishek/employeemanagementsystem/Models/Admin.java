@@ -1,5 +1,6 @@
 package com.abhishek.employeemanagementsystem.Models;
 
+import com.abhishek.employeemanagementsystem.Services.DepartmentService;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -28,6 +29,9 @@ public class Admin {
     private LoginStatus loginStatus = LoginStatus.LOGGEDOUT;
     private EmploymentStatus employmentStatus = EmploymentStatus.ACTIVE;
     private LocalDate dateCreated;
+
+    @ManyToOne
+    private DepartmentManager departmentManager;
 
     @PrePersist
     public void prePersist() {

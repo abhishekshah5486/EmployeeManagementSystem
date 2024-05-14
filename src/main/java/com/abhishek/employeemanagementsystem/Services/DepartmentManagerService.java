@@ -17,4 +17,7 @@ public interface DepartmentManagerService {
     List<DepartmentManager> getAllDepartmentManagers();
     DepartmentManager assignDepartmentToDepartmentManager(Long departmentManagerId, Long departmentId);
     DepartmentManager updateDepartmentManagerDepartment(Long departmentManagerId, Long departmentId);
+    DepartmentManager assignDepartmentManagerToOperationsManager(Long departmentManagerId, Long operationsManagerId);
+    DepartmentManager updateDepartmentManagerToOperationsManager(Long departmentManagerId, Long operationsManagerId);
+    List<DepartmentManager> getDepartmentManagersByOperationsManagerId(Long operationsManagerId);
 }

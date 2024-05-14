@@ -4,15 +4,21 @@ import com.abhishek.employeemanagementsystem.Dtos.AdminLoginRequestDto;
 import com.abhishek.employeemanagementsystem.Dtos.AdminResetPasswordRequestDto;
 import com.abhishek.employeemanagementsystem.Exceptions.*;
 import com.abhishek.employeemanagementsystem.Models.Admin;
+import com.abhishek.employeemanagementsystem.Models.DepartmentManager;
 import com.abhishek.employeemanagementsystem.Models.LoginStatus;
 import com.abhishek.employeemanagementsystem.Repositories.AdminRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 @Service
 public class AdminServiceImpl implements AdminService {
+
+    @Autowired
+    private DepartmentManagerServiceImpl departmentManagerService;
     private AdminRepository adminRepository;
     public AdminServiceImpl(AdminRepository adminRepository) {
         this.adminRepository = adminRepository;
@@ -98,5 +104,46 @@ public class AdminServiceImpl implements AdminService {
         }
         optionalAdmin.get().setLoginStatus(LoginStatus.LOGGEDOUT);
         return adminRepository.save(optionalAdmin.get());
+    }
+
+    @Override
+    public Admin assignAdminToDepartmentManager(Long adminId, Long departmentManagerId) {
+        // Fetch Admin by Admin id
+        Optional<Admin> optionalAdmin = adminRepository.findById(adminId);
+        if (optionalAdmin.isEmpty()){
+            throw new AdminNotFoundException("Admin not found", adminId);
+        }
+        // Fetch DepartmentManager by Department Id
+        DepartmentManager departmentManager = departmentManagerService.getDepartmentManagerById(departmentManagerId);
+        optionalAdmin.get().setDepartmentManager(departmentManager);
+        return adminRepository.save(optionalAdmin.get());
+    }
+
+    @Override
+    public Admin updateAdminToDepartmentManager(Long adminId, Long departmentManagerId) {
+        // Fetch Admin by Admin id
+        Optional<Admin> optionalAdmin = adminRepository.findById(adminId);
+        if (optionalAdmin.isEmpty()){
+            throw new AdminNotFoundException("Admin not found", adminId);
+        }
+        // Fetch DepartmentManager by Department Id
+        DepartmentManager departmentManager = departmentManagerService.getDepartmentManagerById(departmentManagerId);
+        optionalAdmin.get().setDepartmentManager(departmentManager);
+        return adminRepository.save(optionalAdmin.get());
+    }
+
+    @Override
+    public List<Admin> getAdminsByDepartmentManagerId(Long departmentManagerId) {
+        List<Admin> allAdmins = adminRepository.findAll();
+        if (allAdmins.isEmpty()){
+            throw new NoAdminsFoundException("No admins found");
+        }
+        List<Admin> returnAdmins = new ArrayList<>();
+        for (Admin admin : allAdmins){
+            if (admin.getDepartmentManager().getId().equals(departmentManagerId)){
+                returnAdmins.add(admin);
+            }
+        }
+        return returnAdmins;
     }
 }

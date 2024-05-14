@@ -5,6 +5,7 @@ import com.abhishek.employeemanagementsystem.Models.Admin;
 import com.abhishek.employeemanagementsystem.Models.LoginStatus;
 import com.abhishek.employeemanagementsystem.Services.AdminService;
 import org.modelmapper.ModelMapper;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -77,5 +78,30 @@ public class AdminController {
         adminLogoutResponseDto.setMessage("Logout Successful");
         adminLogoutResponseDto.setLoginStatus(LoginStatus.LOGGEDOUT);
         return adminLogoutResponseDto;
+    }
+
+    // Assign Admin to a Department Manager
+    @PostMapping("/{adminId}/department-manager/{departmentManagerId}")
+    public ResponseEntity<String> assignAdminToDepartmentManager(@PathVariable Long adminId, @PathVariable Long departmentManagerId){
+        adminService.assignAdminToDepartmentManager(adminId, departmentManagerId);
+        return ResponseEntity.ok("Admin Assigned to Department Manager Successfully");
+    }
+
+    // Update Department Manager of Admin
+    @PutMapping("/{adminId}/department-manager/{departmentManagerId}")
+    public ResponseEntity<String> updateAdminToDepartmentManager(@PathVariable Long adminId, @PathVariable Long departmentManagerId){
+        adminService.updateAdminToDepartmentManager(adminId, departmentManagerId);
+        return ResponseEntity.ok("Admin Department Manager Updated Successfully");
+    }
+
+    // Retrieve all admins by DepartmentManagerID
+    @GetMapping("/department-manager/{departmentManagerId}")
+    public List<AdminResponseDto> getAdminsByDepartmentManager(@PathVariable Long departmentManagerId){
+        List<Admin> retrievedAdmins = adminService.getAdminsByDepartmentManagerId(departmentManagerId);
+        List<AdminResponseDto> adminResponseDtos = new ArrayList<>();
+        for(Admin admin : retrievedAdmins){
+            adminResponseDtos.add(modelMapper.map(admin, AdminResponseDto.class));
+        }
+        return adminResponseDtos;
     }
 }
