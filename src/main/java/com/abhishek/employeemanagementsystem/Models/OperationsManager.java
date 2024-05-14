@@ -27,6 +27,7 @@ public class OperationsManager {
     private Department department;
     private LoginStatus loginStatus = LoginStatus.LOGGEDOUT;
     private EmploymentStatus employmentStatus = EmploymentStatus.ACTIVE;
+    private UserType userType = UserType.OPERATIONS_MANAGER;
     private LocalDate dateOfJoining;
     private LocalDate dateOfLeaving;
     private LocalDate dateCreated;

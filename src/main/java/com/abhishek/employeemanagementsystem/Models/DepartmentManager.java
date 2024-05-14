@@ -25,6 +25,7 @@ public class DepartmentManager {
     private Department department;
     private LoginStatus loginStatus = LoginStatus.LOGGEDOUT;
     private EmploymentStatus employmentStatus = EmploymentStatus.ACTIVE;
+    private UserType userType = UserType.DEPARTMENT_MANAGER;
     private LocalDate dateOfJoining;
     private LocalDate dateOfLeaving;
     private LocalDate dateCreated;

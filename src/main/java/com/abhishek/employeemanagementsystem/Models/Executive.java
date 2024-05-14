@@ -23,6 +23,7 @@ public class Executive {
     private String password;
     private LoginStatus loginStatus = LoginStatus.LOGGEDOUT;
     private EmploymentStatus employmentStatus = EmploymentStatus.ACTIVE;
+    private UserType userType = UserType.EXECUTIVE;
     private LocalDate dateOfJoining;
     private LocalDate dateCreated;
 
